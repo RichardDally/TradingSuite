@@ -19,6 +19,16 @@ FinancialMarket::FinancialMarket()
 		std::unique_ptr<Instrument> instrument(new StockInstrument(std::get<0>(tuple), std::get<1>(tuple), std::get<2>(tuple)));
 		AddInstrument(std::move(instrument));
 	}
+
+    ob.AddOrder(Way::BUY, 10, 100);
+    ob.AddOrder(Way::BUY, 5, 99);
+    ob.AddOrder(Way::BUY, 8, 98);
+
+    ob.AddOrder(Way::SELL, 5, 101);
+    ob.AddOrder(Way::SELL, 8, 102);
+    ob.AddOrder(Way::SELL, 10, 103);
+
+    ob.Dump();
 }
 
 bool FinancialMarket::AddInstrument(std::unique_ptr<Instrument> instrument)

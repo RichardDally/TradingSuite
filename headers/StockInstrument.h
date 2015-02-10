@@ -6,7 +6,7 @@
 class StockInstrument : public Instrument
 {
 public:
-	StockInstrument(const std::string& name, const std::string& isin, const std::string& mnemo)
+	explicit StockInstrument(const std::string& name, const std::string& isin, const std::string& mnemo)
 		: name_(name), isin_(isin), mnemo_(mnemo)
 	{
 	}
