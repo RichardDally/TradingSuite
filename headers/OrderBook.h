@@ -13,7 +13,7 @@ enum class Way
 template <typename Quantity, typename Price>
 class OrderBook
 {
-    typedef size_t OrderID;
+    typedef int OrderID;
 	typedef Order<OrderID, Quantity, Price> OrderType;
 
 public:
@@ -22,7 +22,7 @@ public:
     // Returns OrderID
     OrderID AddOrder(const Way way, const Quantity& quantity, const Price& price)
     {
-        // naive impl
+        // TODO: improve order id generation
         if (way == Way::BUY)
         {
             static OrderID counter = 0;
@@ -87,13 +87,30 @@ public:
         }
     }
 
-    const OrderType& GetOrder(const OrderID& orderID)
+    bool GetOrder(const OrderID& orderID, OrderType& result)
     {
+        auto it = Find(orderID);
+        if (it != bid.end() && it != ask.end())
+        {
+            result = it->second;
+            return true;
+        }
+        return false;
     }
 
 private:
     std::unordered_map<OrderID, OrderType> bid;
 	std::unordered_map<OrderID, OrderType> ask;
+
+    auto Find(const OrderID& orderID) -> decltype(bid.begin())
+    {
+        auto it = bid.find(id);
+        if (it == bid.end())
+        {
+            it = ask.find(id);
+        }
+        return it;
+    }
 };
 
 #include "OrderBook.hxx"
