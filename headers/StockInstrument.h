@@ -12,8 +12,13 @@ public:
 	}
 
 	virtual ~StockInstrument() override
+	{ 
+	}
+
+	virtual const std::string& GetUniqueIdentifier() const override
 	{
-		std::cout << "StockInstrument dtor" << std::endl; 
+		// NOTE: Simple implementation, StockInstrument mnemo must be unique.
+		return mnemo_;
 	}
 
 	virtual const std::string& GetName() const override

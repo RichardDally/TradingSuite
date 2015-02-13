@@ -4,33 +4,18 @@
 
 Referential::Referential()
 {
-    // name, isin, mnemo
-	typedef std::tuple<const std::string, const std::string, const std::string> TupleType;
-	std::vector<TupleType> listing;
-
-    listing.emplace_back(TupleType("ACCOR", "FR0000120404", "AC"));
-	listing.emplace_back(TupleType("TOTAL", "FR0000120271", "FP"));
-    
-	
-	for (const auto& tuple : listing)
-	{
-		std::shared_ptr<Instrument> instrument(new StockInstrument(std::get<0>(tuple), std::get<1>(tuple), std::get<2>(tuple)));
-		AddInstrument(std::move(instrument));
-	}
 }
 
-bool Referential::AddInstrument(std::shared_ptr<Instrument> instrument)
+void Referential::AddInstrument(std::shared_ptr<Instrument> instrument)
 {
-    const auto it = instrumentsByMnemo_.find(instrument->GetMnemo());
-    if (it != instrumentsByMnemo_.end())
+	const auto it = instrumentsMapping_.find(instrument->GetUniqueIdentifier());
+	if (it != instrumentsMapping_.end())
     {
-        // Overwritting existing instrument...
+		// TODO: handle overwritting
         it->second = std::move(instrument);
     }
     else
     {
-        instrumentsByMnemo_[instrument->GetMnemo()] = std::move(instrument);
+		instrumentsMapping_[instrument->GetUniqueIdentifier()] = std::move(instrument);
     }
-
-    return true;
 }

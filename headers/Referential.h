@@ -5,14 +5,17 @@
 #include <unordered_map>
 
 class Instrument;
+
 class Referential
 {
 public:
+	typedef std::string MnemoType;
+
     Referential();
+	void AddInstrument(std::shared_ptr<Instrument> instrument);
 
 private:
-    bool AddInstrument(std::shared_ptr<Instrument> instrument);
-    std::unordered_map<std::string, std::shared_ptr<Instrument>> instrumentsByMnemo_;
+	std::unordered_map<MnemoType, std::shared_ptr<Instrument>> instrumentsMapping_;
 };
 
 #endif

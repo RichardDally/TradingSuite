@@ -1,14 +1,23 @@
+#include "StockInstrument.h"
 #include "FinancialMarket.h"
 
 FinancialMarket::FinancialMarket()
 {
-    ob.AddOrder(Way::BUY, 10, 100);
-    ob.AddOrder(Way::BUY, 5, 99);
-    ob.AddOrder(Way::BUY, 8, 98);
+}
 
-    ob.AddOrder(Way::SELL, 5, 101);
-    ob.AddOrder(Way::SELL, 8, 102);
-    ob.AddOrder(Way::SELL, 10, 103);
+void FinancialMarket::LoadReferential()
+{
+	// name, isin, mnemo
+	typedef std::tuple<const std::string, const std::string, const std::string> TupleType;
+	std::vector<TupleType> listing;
 
-    ob.Dump();
+	listing.emplace_back(TupleType("ACCOR", "FR0000120404", "AC"));
+	listing.emplace_back(TupleType("TOTAL", "FR0000120271", "FP"));
+
+	for (const auto& tuple : listing)
+	{
+		std::shared_ptr<Instrument> instrument(new StockInstrument(std::get<0>(tuple), std::get<1>(tuple), std::get<2>(tuple)));
+		referential_.AddInstrument(std::move(instrument));
+		orderBooks_.insert({ instrument->GetUniqueIdentifier(), std::move(OrderBookType()) });
+	}
 }

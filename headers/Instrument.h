@@ -9,9 +9,11 @@ class Instrument
 {
 public:
 	//Instrument() = default;
-	virtual ~Instrument() { std::cout << "Instrument dtor" << std::endl; }
+	virtual ~Instrument() {}
 	//Instrument(const Instrument&) = default;
 	//Instrument& operator=(const Instrument&) = default;
+
+	virtual const std::string& GetUniqueIdentifier() const = 0;
 
 	// Get human readable name
 	virtual const std::string& GetName() const = 0;
