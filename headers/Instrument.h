@@ -2,16 +2,12 @@
 #define INSTRUMENT_H_
 
 #include <string>
-#include <iostream>
 
 // Instrument interface
 class Instrument
 {
 public:
-	//Instrument() = default;
 	virtual ~Instrument() {}
-	//Instrument(const Instrument&) = default;
-	//Instrument& operator=(const Instrument&) = default;
 
 	virtual const std::string& GetUniqueIdentifier() const = 0;
 

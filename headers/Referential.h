@@ -5,7 +5,6 @@
 #include <unordered_map>
 
 class Instrument;
-
 class Referential
 {
 public:

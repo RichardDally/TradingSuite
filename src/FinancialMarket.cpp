@@ -17,7 +17,7 @@ void FinancialMarket::LoadReferential()
 	for (const auto& tuple : listing)
 	{
 		std::shared_ptr<Instrument> instrument(new StockInstrument(std::get<0>(tuple), std::get<1>(tuple), std::get<2>(tuple)));
+		matchingEngine_.AddInstrument(instrument);
 		referential_.AddInstrument(std::move(instrument));
-		orderBooks_.insert({ instrument->GetUniqueIdentifier(), std::move(OrderBookType()) });
 	}
 }
