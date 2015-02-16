@@ -5,11 +5,20 @@
 #include <unordered_map>
 #include "OrderBook.h"
 
-template <typename InstrumentType, typename InstrumentTraits, typename OrderID, typename Quantity, typename Price>
+template <typename InstrumentType, typename InstrumentTraits, typename OrderTraits>
 class MatchingEngine
 {
-	typedef Order<OrderID, Quantity, Price> OrderType;
-	typedef OrderBook<OrderID, Quantity, Price> OrderBookType;
+	// Instrument traits
+	typedef typename InstrumentTraits::InstrumentIDType InstrumentIDType;
+
+	// Order traits
+	typedef typename OrderTraits::OrderIDType OrderID;
+	typedef typename OrderTraits::QuantityType Quantity;
+	typedef typename OrderTraits::PriceType Price;
+
+	// Aliases
+	typedef Order<OrderTraits> OrderType;
+	typedef OrderBook<OrderTraits> OrderBookType;
 
 public:
 	void AddInstrument(std::shared_ptr<Instrument<InstrumentType, InstrumentTraits>> instrument);
@@ -21,7 +30,7 @@ public:
 private:
 	// Key: mnemo
 	// Value: order book
-	std::unordered_map<typename InstrumentTraits::InstrumentIDType, OrderBookType> orderBooks_;
+	std::unordered_map<InstrumentIDType, OrderBookType> orderBooks_;
 };
 
 #include "MatchingEngine.hxx"

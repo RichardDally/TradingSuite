@@ -3,13 +3,13 @@
 
 #include "OrderBook.h"
 
-template <typename OrderID, typename Quantity, typename Price>
-OrderBook<OrderID, Quantity, Price>::OrderBook()
+template <typename OrderTraits>
+OrderBook<OrderTraits>::OrderBook()
 {
 }
 
-template <typename OrderID, typename Quantity, typename Price>
-bool OrderBook<OrderID, Quantity, Price>::AddOrder(OrderType& order)
+template <typename OrderTraits>
+bool OrderBook<OrderTraits>::AddOrder(OrderType& order)
 {
 	// TODO: improve order id generation
 	if (order.way_ == Way::BUY)
@@ -31,8 +31,8 @@ bool OrderBook<OrderID, Quantity, Price>::AddOrder(OrderType& order)
 	return true;
 }
 
-template <typename OrderID, typename Quantity, typename Price>
-bool OrderBook<OrderID, Quantity, Price>::ModOrder(const OrderID& orderID, OrderType& newOrder)
+template <typename OrderTraits>
+bool OrderBook<OrderTraits>::ModOrder(const OrderID& orderID, OrderType& newOrder)
 {
 	auto it = bid.find(orderID);
 	if (it == bid.end())
@@ -50,8 +50,8 @@ bool OrderBook<OrderID, Quantity, Price>::ModOrder(const OrderID& orderID, Order
 	return true;
 }
 
-template <typename OrderID, typename Quantity, typename Price>
-bool OrderBook<OrderID, Quantity, Price>::DelOrder(const OrderID& orderID)
+template <typename OrderTraits>
+bool OrderBook<OrderTraits>::DelOrder(const OrderID& orderID)
 {
 	auto it = bid.find(orderID);
 	if (it != bid.end())
@@ -70,8 +70,8 @@ bool OrderBook<OrderID, Quantity, Price>::DelOrder(const OrderID& orderID)
 	return false;
 }
 
-template <typename OrderID, typename Quantity, typename Price>
-void OrderBook<OrderID, Quantity, Price>::Dump()
+template <typename OrderTraits>
+void OrderBook<OrderTraits>::Dump()
 {
 	std::cout << "--- Bid ---" << std::endl;
 	for (const auto& pair : bid)
@@ -85,8 +85,8 @@ void OrderBook<OrderID, Quantity, Price>::Dump()
 	}
 }
 
-template <typename OrderID, typename Quantity, typename Price>
-bool OrderBook<OrderID, Quantity, Price>::GetOrder(const OrderID& orderID, OrderType& result) const
+template <typename OrderTraits>
+bool OrderBook<OrderTraits>::GetOrder(const OrderID& orderID, OrderType& result) const
 {
 	auto it = Find(orderID);
 	if (it != bid.end() && it != ask.end())

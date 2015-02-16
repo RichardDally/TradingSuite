@@ -1,13 +1,15 @@
 #include <iostream>
+#include "OrderTraits.h"
 #include "InstrumentTraits.h"
 #include "StockInstrument.h"
 #include "FinancialMarket.h"
 
 int main()
 {
-	InstrumentTraits<int> simple;
+	InstrumentTraits<int> simpleInstrumentTraits;
+	OrderTraits<int, int, int> simpleOrderTraits;
 
-	FinancialMarket<StockInstrument<decltype(simple)>, decltype(simple), int, int, int> fmarket;
+	FinancialMarket<StockInstrument<decltype(simpleInstrumentTraits)>, decltype(simpleInstrumentTraits), decltype(simpleOrderTraits)> fmarket;
 	fmarket.LoadReferential();
 
 	int dummy;

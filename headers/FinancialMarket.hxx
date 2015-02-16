@@ -3,11 +3,11 @@
 
 #include "FinancialMarket.h"
 
-template <typename InstrumentType, typename InstrumentTraits, typename OrderID, typename Quantity, typename Price>
-void FinancialMarket<InstrumentType, InstrumentTraits, OrderID, Quantity, Price>::LoadReferential()
+template <typename InstrumentType, typename InstrumentTraits, typename OrderTraits>
+void FinancialMarket<InstrumentType, InstrumentTraits, OrderTraits>::LoadReferential()
 {
 	// unique id, name, isin, mnemo
-	typedef std::tuple<int, const std::string, const std::string, const std::string> TupleType;
+	typedef std::tuple<typename InstrumentTraits::InstrumentIDType, const std::string, const std::string, const std::string> TupleType;
 	std::vector<TupleType> listing;
 
 	listing.emplace_back(TupleType(0, "ACCOR", "FR0000120404", "AC"));

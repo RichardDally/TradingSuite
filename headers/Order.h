@@ -1,18 +1,19 @@
 #ifndef ORDER_H_
 #define ORDER_H_
 
-#include "OrderID.hxx"
-
 enum class Way : int
 {
 	BUY,
 	SELL
 };
 
-template <typename OrderID, typename Quantity, typename Price>
+template <typename OrderTraits>
 struct Order
 {
-public:
+	typedef typename OrderTraits::OrderIDType OrderID;
+	typedef typename OrderTraits::QuantityType Quantity;
+	typedef typename OrderTraits::PriceType Price;
+
 	explicit Order(const Way way, const Quantity& quantity, const Price& price)
 		: way_(way), quantity_(quantity), price_(price)
 	{
