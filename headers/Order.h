@@ -1,11 +1,7 @@
 #ifndef ORDER_H_
 #define ORDER_H_
 
-enum class Way : int
-{
-	BUY,
-	SELL
-};
+#include "Way.h"
 
 template <typename OrderTraits>
 struct Order
