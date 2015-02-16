@@ -17,7 +17,7 @@ public:
 
 	const InstrumentIDType& GetInstrumentID() const
 	{
-		// NOTE: Simple implementation, StockInstrument mnemo must be unique.
+		// NOTE: Simple implementation, instrument id must be unique.
 		return id_;
 	}
 
