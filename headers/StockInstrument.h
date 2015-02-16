@@ -2,19 +2,23 @@
 #define STOCK_INSTRUMENT_H_
 
 #include "Instrument.h"
+#include "InstrumentTraits.h"
 
-class StockInstrument : public Instrument<int, StockInstrument>
+template <typename InstrumentTraits>
+class StockInstrument : public Instrument <StockInstrument<InstrumentTraits>, InstrumentTraits>
 {
+	typedef typename InstrumentTraits::InstrumentIDType InstrumentIDType;
+
 public:
-	explicit StockInstrument(const std::string& name, const std::string& isin, const std::string& mnemo)
-		: name_(name), isin_(isin), mnemo_(mnemo)
+	explicit StockInstrument(const InstrumentIDType id, const std::string& name, const std::string& isin, const std::string& mnemo)
+		:  id_(id), name_(name), isin_(isin), mnemo_(mnemo)
 	{
 	}
 
-	const std::string& GetUniqueIdentifier() const
+	const InstrumentIDType& GetInstrumentID() const
 	{
 		// NOTE: Simple implementation, StockInstrument mnemo must be unique.
-		return mnemo_;
+		return id_;
 	}
 
 	const std::string& GetName() const
@@ -33,6 +37,7 @@ public:
 	}
 
 protected:
+	const InstrumentIDType id_;
 	const std::string name_;
 	const std::string isin_;
 	const std::string mnemo_;

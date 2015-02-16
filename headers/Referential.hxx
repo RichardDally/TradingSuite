@@ -1,14 +1,12 @@
 #ifndef REFERENTIAL_HXX_
 #define REFERENTIAL_HXX_
 
-#include <tuple>
-#include "StockInstrument.h"
 #include "Referential.h"
 
-template <typename InstrumentID, typename InstrumentType>
-void Referential<InstrumentID, InstrumentType>::AddInstrument(std::shared_ptr<Instrument<InstrumentID, InstrumentType>> instrument)
+template <typename InstrumentType, typename Traits>
+void Referential<InstrumentType, Traits>::AddInstrument(std::shared_ptr<Instrument<InstrumentType, Traits>> instrument)
 {
-	const auto it = instrumentsMapping_.find(instrument->GetUniqueIdentifier());
+	const auto it = instrumentsMapping_.find(instrument->GetInstrumentID());
 	if (it != instrumentsMapping_.end())
 	{
 		// TODO: handle overwritting
@@ -16,7 +14,7 @@ void Referential<InstrumentID, InstrumentType>::AddInstrument(std::shared_ptr<In
 	}
 	else
 	{
-		instrumentsMapping_[instrument->GetUniqueIdentifier()] = std::move(instrument);
+		instrumentsMapping_[instrument->GetInstrumentID()] = std::move(instrument);
 	}
 }
 

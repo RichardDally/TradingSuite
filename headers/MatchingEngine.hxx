@@ -4,26 +4,26 @@
 #include "Instrument.h"
 #include "MatchingEngine.h"
 
-template <typename InstrumentID, typename InstrumentType, typename OrderID, typename Quantity, typename Price>
-void MatchingEngine<InstrumentID, InstrumentType, OrderID, Quantity, Price>::AddInstrument(std::shared_ptr<Instrument<InstrumentID, InstrumentType>> instrument)
+template <typename InstrumentType, typename InstrumentTraits, typename OrderID, typename Quantity, typename Price>
+void MatchingEngine<InstrumentType, InstrumentTraits, OrderID, Quantity, Price>::AddInstrument(std::shared_ptr<Instrument<InstrumentType, InstrumentTraits>> instrument)
 {
-	orderBooks_.insert({ instrument->GetUniqueIdentifier(), std::move(OrderBookType()) });
+	orderBooks_.insert({ instrument->GetInstrumentID(), std::move(OrderBookType()) });
 }
 
-template <typename InstrumentID, typename InstrumentType, typename OrderID, typename Quantity, typename Price>
-bool MatchingEngine<InstrumentID, InstrumentType, OrderID, Quantity, Price>::AddOrder(OrderType& order)
-{
-	return true;
-}
-
-template <typename InstrumentID, typename InstrumentType, typename OrderID, typename Quantity, typename Price>
-bool MatchingEngine<InstrumentID, InstrumentType, OrderID, Quantity, Price>::ModOrder(const OrderID& orderID, OrderType& newOrder)
+template <typename InstrumentType, typename InstrumentTraits, typename OrderID, typename Quantity, typename Price>
+bool MatchingEngine<InstrumentType, InstrumentTraits, OrderID, Quantity, Price>::AddOrder(OrderType& order)
 {
 	return true;
 }
 
-template <typename InstrumentID, typename InstrumentType, typename OrderID, typename Quantity, typename Price>
-bool MatchingEngine<InstrumentID, InstrumentType, OrderID, Quantity, Price>::DelOrder(const OrderID& orderID)
+template <typename InstrumentType, typename InstrumentTraits, typename OrderID, typename Quantity, typename Price>
+bool MatchingEngine<InstrumentType, InstrumentTraits, OrderID, Quantity, Price>::ModOrder(const OrderID& orderID, OrderType& newOrder)
+{
+	return true;
+}
+
+template <typename InstrumentType, typename InstrumentTraits, typename OrderID, typename Quantity, typename Price>
+bool MatchingEngine<InstrumentType, InstrumentTraits, OrderID, Quantity, Price>::DelOrder(const OrderID& orderID)
 {
 	return true;
 }

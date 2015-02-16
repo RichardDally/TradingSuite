@@ -3,32 +3,34 @@
 
 #include <string>
 
-template <typename InstrumentID, typename Derived>
+template <typename Derived, typename Traits>
 class Instrument
 {
+	typedef typename Traits::InstrumentIDType InstrumentIDType;
+
 public:
 	// Unique identifier of instrument
-	const InstrumentID& GetInstrumentID() const
+	const InstrumentIDType& GetInstrumentID() const
 	{
-		return static_cast<Derived*>(this)->GetInstrumentID();
+		return static_cast<const Derived*>(this)->GetInstrumentID();
 	}
 
 	// Get human readable name
 	const std::string& GetName() const
 	{
-		return static_cast<Derived*>(this)->GetName();
+		return static_cast<const Derived*>(this)->GetName();
 	}
 
 	// Get International Securities Identification Number (ISIN)
 	const std::string& GetISIN() const
 	{
-		return static_cast<Derived*>(this)->GetISIN();
+		return static_cast<const Derived*>(this)->GetISIN();
 	}
 
 	// Get mnenonic name
 	const std::string& GetMnemo() const
 	{
-		return static_cast<Derived*>(this)->GetMnemo();
+		return static_cast<const Derived*>(this)->GetMnemo();
 	}
 };
 
