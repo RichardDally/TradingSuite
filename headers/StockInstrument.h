@@ -3,7 +3,7 @@
 
 #include "Instrument.h"
 
-class StockInstrument : public Instrument
+class StockInstrument : public Instrument<int, StockInstrument>
 {
 public:
 	explicit StockInstrument(const std::string& name, const std::string& isin, const std::string& mnemo)
@@ -11,27 +11,23 @@ public:
 	{
 	}
 
-	virtual ~StockInstrument() override
-	{ 
-	}
-
-	virtual const std::string& GetUniqueIdentifier() const override
+	const std::string& GetUniqueIdentifier() const
 	{
 		// NOTE: Simple implementation, StockInstrument mnemo must be unique.
 		return mnemo_;
 	}
 
-	virtual const std::string& GetName() const override
+	const std::string& GetName() const
 	{
 		return name_;
 	}
 
-	virtual const std::string& GetISIN() const override
+	const std::string& GetISIN() const
 	{
 		return isin_;
 	}
 
-	virtual const std::string& GetMnemo() const override
+	const std::string& GetMnemo() const
 	{
 		return mnemo_;
 	}

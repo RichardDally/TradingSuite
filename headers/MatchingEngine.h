@@ -5,20 +5,25 @@
 #include <unordered_map>
 #include "OrderBook.h"
 
-class Instrument;
+template <typename InstrumentID, typename InstrumentType, typename OrderID, typename Quantity, typename Price>
 class MatchingEngine
 {
+	typedef Order<OrderID, Quantity, Price> OrderType;
+	typedef OrderBook<OrderID, Quantity, Price> OrderBookType;
+
 public:
-	void AddInstrument(std::shared_ptr<Instrument> instrument);
+	void AddInstrument(std::shared_ptr<Instrument<InstrumentID, InstrumentType>> instrument);
+
+	bool AddOrder(OrderType& order);
+	bool ModOrder(const OrderID& orderID, OrderType& newOrder);
+	bool DelOrder(const OrderID& orderID);
 
 private:
-	// <quantity type, price type>
-	// TODO: switch to double and handle them
-	typedef OrderBook<int, int> OrderBookType;
-
 	// Key: mnemo
 	// Value: order book
-	std::unordered_map<std::string, OrderBookType> orderBooks_;
+	std::unordered_map<InstrumentID, OrderBookType> orderBooks_;
 };
+
+#include "MatchingEngine.hxx"
 
 #endif

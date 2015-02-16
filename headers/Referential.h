@@ -3,18 +3,20 @@
 
 #include <memory>
 #include <unordered_map>
+#include "Instrument.h"
 
-class Instrument;
+template <typename InstrumentID, typename InstrumentType>
 class Referential
 {
-public:
 	typedef std::string MnemoType;
 
-    Referential();
-	void AddInstrument(std::shared_ptr<Instrument> instrument);
+public:
+	void AddInstrument(std::shared_ptr<Instrument<InstrumentID, InstrumentType>> instrument);
 
 private:
-	std::unordered_map<MnemoType, std::shared_ptr<Instrument>> instrumentsMapping_;
+	std::unordered_map<MnemoType, std::shared_ptr<Instrument<InstrumentID, InstrumentType>>> instrumentsMapping_;
 };
+
+#include "Referential.hxx"
 
 #endif

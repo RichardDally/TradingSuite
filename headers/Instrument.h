@@ -3,22 +3,33 @@
 
 #include <string>
 
-// Instrument interface
+template <typename InstrumentID, typename Derived>
 class Instrument
 {
 public:
-	virtual ~Instrument() {}
-
-	virtual const std::string& GetUniqueIdentifier() const = 0;
+	// Unique identifier of instrument
+	const InstrumentID& GetInstrumentID() const
+	{
+		return static_cast<Derived*>(this)->GetInstrumentID();
+	}
 
 	// Get human readable name
-	virtual const std::string& GetName() const = 0;
+	const std::string& GetName() const
+	{
+		return static_cast<Derived*>(this)->GetName();
+	}
 
 	// Get International Securities Identification Number (ISIN)
-	virtual const std::string& GetISIN() const = 0;
+	const std::string& GetISIN() const
+	{
+		return static_cast<Derived*>(this)->GetISIN();
+	}
 
 	// Get mnenonic name
-	virtual const std::string& GetMnemo() const = 0;
+	const std::string& GetMnemo() const
+	{
+		return static_cast<Derived*>(this)->GetMnemo();
+	}
 };
 
 #endif

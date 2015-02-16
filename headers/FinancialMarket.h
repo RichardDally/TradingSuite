@@ -4,15 +4,15 @@
 #include "Referential.h"
 #include "MatchingEngine.h"
 
+template <typename InstrumentID, typename InstrumentType, typename OrderID, typename Quantity, typename Price>
 class FinancialMarket
 {
 public:
-	FinancialMarket();
 	void LoadReferential();
 
 private:
-	Referential referential_;
-	MatchingEngine matchingEngine_;
+	Referential<InstrumentID, InstrumentType> referential_;
+	MatchingEngine<InstrumentID, InstrumentType, OrderID, Quantity, Price> matchingEngine_;
 };
 
 #endif

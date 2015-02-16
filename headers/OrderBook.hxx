@@ -3,69 +3,75 @@
 
 #include "OrderBook.h"
 
-template <typename Quantity, typename Price>
-OrderBook<Quantity, Price>::OrderBook()
+template <typename OrderID, typename Quantity, typename Price>
+OrderBook<OrderID, Quantity, Price>::OrderBook()
 {
 }
 
-template <typename Quantity, typename Price>
-typename OrderBook<Quantity, Price>::OrderID
-OrderBook<Quantity, Price>::AddOrder(const Way way, const Quantity& quantity, const Price& price)
+template <typename OrderID, typename Quantity, typename Price>
+bool OrderBook<OrderID, Quantity, Price>::AddOrder(OrderType& order)
 {
 	// TODO: improve order id generation
-	if (way == Way::BUY)
+	if (order.way_ == Way::BUY)
 	{
 		static OrderID counter = 0;
-		bid.emplace(counter++, OrderType(counter, quantity, price));
-		return counter;
+		bid.emplace(counter++, OrderType(order));
+		order.orderID_ = counter;
 	}
-	else if (way == Way::SELL)
+	else if (order.way_ == Way::SELL)
 	{
 		static OrderID counter = 0;
-		ask.emplace(counter++, OrderType(counter, quantity, price));
-		return counter;
+		ask.emplace(counter++, OrderType(order));
+		order.orderID_ = counter;
 	}
-	// TODO: throw exception
+	else
+	{
+		return false;
+	}
+	return true;
 }
 
-template <typename Quantity, typename Price>
-void OrderBook<Quantity, Price>::ModOrder(const OrderID& id, const Quantity& quantity, const Price& price)
+template <typename OrderID, typename Quantity, typename Price>
+bool OrderBook<OrderID, Quantity, Price>::ModOrder(const OrderID& orderID, OrderType& newOrder)
 {
-	auto it = bid.find(id);
+	auto it = bid.find(orderID);
 	if (it == bid.end())
 	{
-		it = ask.find(id);
+		it = ask.find(orderID);
 		if (it == ask.end())
 		{
-			// Order $id not found
-			return;
+			// OrderID has not been found
+			return false;
 		}
 	}
 	// Modify order
 	it->second.price_ = price;
 	it->second.quantity_ = quantity;
+	return true;
 }
 
-template <typename Quantity, typename Price>
-void OrderBook<Quantity, Price>::DelOrder(const OrderID& id, const Quantity& quantity, const Price& price)
+template <typename OrderID, typename Quantity, typename Price>
+bool OrderBook<OrderID, Quantity, Price>::DelOrder(const OrderID& orderID)
 {
-	auto it = bid.find(id);
+	auto it = bid.find(orderID);
 	if (it != bid.end())
 	{
-		bid.erase(id);
-		return;
+		bid.erase(orderID);
+		return true;
 	}
 
-	it = ask.find(id);
+	it = ask.find(orderID);
 	if (it != ask.end())
 	{
-		ask.erase(it);
-		return;
+		ask.erase(orderID);
+		return true;
 	}
+
+	return false;
 }
 
-template <typename Quantity, typename Price>
-void OrderBook<Quantity, Price>::Dump()
+template <typename OrderID, typename Quantity, typename Price>
+void OrderBook<OrderID, Quantity, Price>::Dump()
 {
 	std::cout << "--- Bid ---" << std::endl;
 	for (const auto& pair : bid)
@@ -79,8 +85,8 @@ void OrderBook<Quantity, Price>::Dump()
 	}
 }
 
-template <typename Quantity, typename Price>
-bool OrderBook<Quantity, Price>::GetOrder(const OrderID& orderID, OrderType& result) const
+template <typename OrderID, typename Quantity, typename Price>
+bool OrderBook<OrderID, Quantity, Price>::GetOrder(const OrderID& orderID, OrderType& result) const
 {
 	auto it = Find(orderID);
 	if (it != bid.end() && it != ask.end())

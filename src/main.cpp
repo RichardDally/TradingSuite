@@ -3,7 +3,7 @@
 
 int main()
 {
-	FinancialMarket fmarket;
+	FinancialMarket<int, StockInstrument, int, int, int> fmarket;
 
 	int dummy;
 	std::cin >> dummy;

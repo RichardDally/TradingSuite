@@ -4,29 +4,16 @@
 #include <unordered_map>
 #include "Order.h"
 
-enum class Way
-{
-    BUY,
-    SELL
-};
-
-template <typename Quantity, typename Price>
+template <typename OrderID, typename Quantity, typename Price>
 class OrderBook
 {
-public:
-	typedef int OrderID;
 	typedef Order<OrderID, Quantity, Price> OrderType;
 
+public:
 	OrderBook();
-
-    // Returns OrderID
-	OrderID AddOrder(const Way way, const Quantity& quantity, const Price& price);
-
-	// Modifies an order by order id
-	void ModOrder(const OrderID& id, const Quantity& quantity, const Price& price);
-
-	// Delete order by order id
-	void DelOrder(const OrderID& id, const Quantity& quantity, const Price& price);
+	bool AddOrder(Order<OrderID, Quantity, Price>& order);
+	bool ModOrder(const OrderID& orderID, Order<OrderID, Quantity, Price>& newOrder);
+	bool DelOrder(const OrderID& orderID);
 
     // Debug purpose
 	void Dump();
