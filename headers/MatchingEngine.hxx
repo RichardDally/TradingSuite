@@ -4,26 +4,26 @@
 #include "Instrument.h"
 #include "MatchingEngine.h"
 
-template <typename InstrumentType, typename InstrumentTraits, typename OrderTraits>
-void MatchingEngine<InstrumentType, InstrumentTraits, OrderTraits>::AddInstrument(std::shared_ptr<Instrument<InstrumentType, InstrumentTraits>> instrument)
+template <typename InstrumentType, typename OrderTraits, typename InstrumentTraits>
+void MatchingEngine<InstrumentType, OrderTraits, InstrumentTraits>::AddInstrument(std::shared_ptr<Instrument<InstrumentType, InstrumentTraits>> instrument)
 {
 	orderBooks_.insert({ instrument->GetInstrumentID(), std::move(OrderBookType()) });
 }
 
-template <typename InstrumentType, typename InstrumentTraits, typename OrderTraits>
-bool MatchingEngine<InstrumentType, InstrumentTraits, OrderTraits>::AddOrder(OrderType& order)
+template <typename InstrumentType, typename OrderTraits, typename InstrumentTraits>
+bool MatchingEngine<InstrumentType, OrderTraits, InstrumentTraits>::AddOrder(OrderType& order)
 {
 	return true;
 }
 
-template <typename InstrumentType, typename InstrumentTraits, typename OrderTraits>
-bool MatchingEngine<InstrumentType, InstrumentTraits, OrderTraits>::ModOrder(const OrderID& orderID, OrderType& newOrder)
+template <typename InstrumentType, typename OrderTraits, typename InstrumentTraits>
+bool MatchingEngine<InstrumentType, OrderTraits, InstrumentTraits>::ModOrder(const OrderID& orderID, OrderType& newOrder)
 {
 	return true;
 }
 
-template <typename InstrumentType, typename InstrumentTraits, typename OrderTraits>
-bool MatchingEngine<InstrumentType, InstrumentTraits, OrderTraits>::DelOrder(const OrderID& orderID)
+template <typename InstrumentType, typename OrderTraits, typename InstrumentTraits>
+bool MatchingEngine<InstrumentType, OrderTraits, InstrumentTraits>::DelOrder(const OrderID& orderID)
 {
 	return true;
 }

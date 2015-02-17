@@ -4,14 +4,16 @@
 #include <unordered_map>
 #include "Order.h"
 
-template <typename OrderTraits>
+template <typename OrderTraits, typename InstrumentTraits>
 class OrderBook
 {
+	// Order traits
 	typedef typename OrderTraits::OrderIDType OrderID;
 	typedef typename OrderTraits::QuantityType Quantity;
 	typedef typename OrderTraits::PriceType Price;
 
-	typedef Order<OrderTraits> OrderType;
+	// Aliases
+	typedef Order<OrderTraits, InstrumentTraits> OrderType;
 
 public:
 	OrderBook();

@@ -5,14 +5,17 @@
 #include <unordered_map>
 #include "Instrument.h"
 
-template <typename InstrumentType, typename Traits>
+template <typename InstrumentType, typename InstrumentTraits>
 class Referential
 {
+	// Instrument traits
+	typedef typename InstrumentTraits::InstrumentIDType InstrumentID;
+
 public:
-	void AddInstrument(std::shared_ptr<Instrument<InstrumentType, Traits>> instrument);
+	void AddInstrument(std::shared_ptr<Instrument<InstrumentType, InstrumentTraits>>&& instrument);
 
 private:
-	std::unordered_map<typename Traits::InstrumentIDType, std::shared_ptr<Instrument<InstrumentType, Traits>>> instrumentsMapping_;
+	std::unordered_map<InstrumentID, std::shared_ptr<Instrument<InstrumentType, InstrumentTraits>>> instrumentsMapping_;
 };
 
 #include "Referential.hxx"

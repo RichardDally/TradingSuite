@@ -4,7 +4,7 @@
 #include "Referential.h"
 #include "MatchingEngine.h"
 
-template <typename InstrumentType, typename InstrumentTraits, typename OrderTraits>
+template <typename InstrumentType, typename OrderTraits, typename InstrumentTraits>
 class FinancialMarket
 {
 public:
@@ -12,7 +12,7 @@ public:
 
 private:
 	Referential<InstrumentType, InstrumentTraits> referential_;
-	MatchingEngine<InstrumentType, InstrumentTraits, OrderTraits> matchingEngine_;
+	MatchingEngine<InstrumentType, OrderTraits, InstrumentTraits> matchingEngine_;
 };
 
 #include "FinancialMarket.hxx"

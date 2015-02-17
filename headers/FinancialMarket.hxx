@@ -3,8 +3,8 @@
 
 #include "FinancialMarket.h"
 
-template <typename InstrumentType, typename InstrumentTraits, typename OrderTraits>
-void FinancialMarket<InstrumentType, InstrumentTraits, OrderTraits>::LoadReferential()
+template <typename InstrumentType, typename OrderTraits, typename InstrumentTraits>
+void FinancialMarket<InstrumentType, OrderTraits, InstrumentTraits>::LoadReferential()
 {
 	// unique id, name, isin, mnemo
 	typedef std::tuple<typename InstrumentTraits::InstrumentIDType, const std::string, const std::string, const std::string> TupleType;

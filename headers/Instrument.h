@@ -6,6 +6,7 @@
 template <typename Derived, typename Traits>
 class Instrument
 {
+	// Instrument traits
 	typedef typename Traits::InstrumentIDType InstrumentIDType;
 
 public:

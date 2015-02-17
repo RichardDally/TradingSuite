@@ -3,9 +3,13 @@
 
 #include "Way.h"
 
-template <typename OrderTraits>
+template <typename OrderTraits, typename InstrumentTraits>
 struct Order
 {
+	// Instrument traits
+	typedef typename InstrumentTraits::InstrumentIDType InstrumentID;
+
+	// Order traits
 	typedef typename OrderTraits::OrderIDType OrderID;
 	typedef typename OrderTraits::QuantityType Quantity;
 	typedef typename OrderTraits::PriceType Price;
@@ -21,6 +25,7 @@ struct Order
 	}
 
 	const Way way_;
+	InstrumentID instrumentID_;
     OrderID orderID_; // TODO: initialize orderID_ with template specialization
     Quantity quantity_;
     Price price_;

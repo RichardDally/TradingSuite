@@ -9,7 +9,7 @@ int main()
 	InstrumentTraits<int> simpleInstrumentTraits;
 	OrderTraits<int, int, int> simpleOrderTraits;
 
-	FinancialMarket<StockInstrument<decltype(simpleInstrumentTraits)>, decltype(simpleInstrumentTraits), decltype(simpleOrderTraits)> fmarket;
+	FinancialMarket<StockInstrument<decltype(simpleInstrumentTraits)>, decltype(simpleOrderTraits), decltype(simpleInstrumentTraits)> fmarket;
 	fmarket.LoadReferential();
 
 	int dummy;
