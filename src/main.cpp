@@ -8,8 +8,9 @@ int main()
 {
 	InstrumentTraits<int> simpleInstrumentTraits;
 	OrderTraits<int, int, int> simpleOrderTraits;
+	typedef StockInstrument<decltype(simpleInstrumentTraits)> Instrument;
 
-	FinancialMarket<StockInstrument<decltype(simpleInstrumentTraits)>, decltype(simpleOrderTraits), decltype(simpleInstrumentTraits)> fmarket;
+	FinancialMarket<Instrument, decltype(simpleOrderTraits), decltype(simpleInstrumentTraits)> fmarket;
 	fmarket.LoadReferential();
 
 	int dummy;

@@ -14,6 +14,19 @@ class Referential
 public:
 	void AddInstrument(std::shared_ptr<Instrument<InstrumentType, InstrumentTraits>>&& instrument);
 
+	std::weak_ptr<Instrument<InstrumentType, InstrumentTraits>> GetInstrument(const InstrumentID& id)
+	{
+		std::weak_ptr<Instrument<InstrumentType, InstrumentTraits>> instr(nullptr);
+
+		const auto it = instrumentsMapping_.find(id);
+		if (it != instrumentsMapping_.end())
+		{
+			instr = it->second;
+		}
+
+		return instr;
+	}
+
 private:
 	std::unordered_map<InstrumentID, std::shared_ptr<Instrument<InstrumentType, InstrumentTraits>>> instrumentsMapping_;
 };

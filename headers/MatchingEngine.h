@@ -8,9 +8,6 @@
 template <typename InstrumentType, typename OrderTraits, typename InstrumentTraits>
 class MatchingEngine
 {
-	// Instrument traits
-	typedef typename InstrumentTraits::InstrumentIDType InstrumentID;
-
 	// Order traits
 	typedef typename OrderTraits::OrderIDType OrderID;
 	typedef typename OrderTraits::QuantityType Quantity;
@@ -21,14 +18,17 @@ class MatchingEngine
 	typedef OrderBook<OrderTraits, InstrumentTraits> OrderBookType;
 
 public:
-	void AddInstrument(std::shared_ptr<Instrument<InstrumentType, InstrumentTraits>> instrument);
+	// Instrument traits
+	typedef typename InstrumentTraits::InstrumentIDType InstrumentID;
+
+	void CreateOrderBook(const InstrumentID& id);
 
 	bool AddOrder(OrderType& order);
 	bool ModOrder(const OrderID& orderID, OrderType& newOrder);
 	bool DelOrder(const OrderID& orderID);
 
 private:
-	// Key: mnemo
+	// Key: instrument id
 	// Value: order book
 	std::unordered_map<InstrumentID, OrderBookType> orderBooks_;
 };

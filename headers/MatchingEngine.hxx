@@ -5,9 +5,9 @@
 #include "MatchingEngine.h"
 
 template <typename InstrumentType, typename OrderTraits, typename InstrumentTraits>
-void MatchingEngine<InstrumentType, OrderTraits, InstrumentTraits>::AddInstrument(std::shared_ptr<Instrument<InstrumentType, InstrumentTraits>> instrument)
+void MatchingEngine<InstrumentType, OrderTraits, InstrumentTraits>::CreateOrderBook(const InstrumentID& id)
 {
-	orderBooks_.insert({ instrument->GetInstrumentID(), std::move(OrderBookType()) });
+	orderBooks_.insert({ id, std::move(OrderBookType()) });
 }
 
 template <typename InstrumentType, typename OrderTraits, typename InstrumentTraits>
