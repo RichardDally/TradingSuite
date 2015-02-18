@@ -19,6 +19,8 @@ void FinancialMarket<InstrumentType, OrderTraits, InstrumentTraits>::LoadReferen
 		matchingEngine_.CreateOrderBook(instrument->GetInstrumentID());
 		referential_.AddInstrument(std::move(instrument));
 	}
+
+	referential_.TestProtobuf();
 }
 
 #endif
