@@ -1,3 +1,0 @@
-Add in Instruments.pb.h: #pragma warning(disable : 4996)
-Add library path (where protobuf has been compiled)
-Add library: libprotobuf.lib

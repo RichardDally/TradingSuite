@@ -1,0 +1,9 @@
+- Clone https://github.com/google/protobuf
+- Compile to get protoc binary
+- Execute protoc binary to generate .pb files
+- Move generated files to src and headers directories.
+- Modify library path (where protobuf has been compiled)
+- Add library: libprotobuf.lib
+
+Windows:
+Don't forget to add in Instruments.pb.h: #pragma warning(disable : 4996)
