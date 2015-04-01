@@ -13,7 +13,7 @@
   <ItemGroup>
     <ClInclude Include="..\headers\FinancialMarket.h" />
     <ClInclude Include="..\headers\FinancialMarket.hxx" />
-    <ClInclude Include="..\headers\Instrument.h" />
+    <ClInclude Include="..\headers\GenericInstrument.h" />
     <ClInclude Include="..\headers\instrumentmessage.pb.h" />
     <ClInclude Include="..\headers\InstrumentTraits.h" />
     <ClInclude Include="..\headers\MatchingEngine.h" />

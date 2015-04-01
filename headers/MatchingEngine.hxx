@@ -1,7 +1,6 @@
 #ifndef MATCHING_ENGINE_HXX_
 #define MATCHING_ENGINE_HXX_
 
-#include "Instrument.h"
 #include "MatchingEngine.h"
 
 template <typename InstrumentType, typename OrderTraits, typename InstrumentTraits>

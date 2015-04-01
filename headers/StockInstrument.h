@@ -2,11 +2,11 @@
 #ifndef STOCK_INSTRUMENT_H_
 #define STOCK_INSTRUMENT_H_
 
-#include "Instrument.h"
+#include "GenericInstrument.h"
 #include "InstrumentTraits.h"
 
 template <typename InstrumentTraits>
-class StockInstrument : public Instrument <StockInstrument<InstrumentTraits>, InstrumentTraits>
+class StockInstrument : public GenericInstrument<StockInstrument<InstrumentTraits>, InstrumentTraits>
 {
 	typedef typename InstrumentTraits::InstrumentIDType InstrumentIDType;
 

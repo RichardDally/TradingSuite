@@ -4,7 +4,7 @@
 
 #include <memory>
 #include <unordered_map>
-#include "Instrument.h"
+#include "GenericInstrument.h"
 #include "InstrumentMessage.pb.h"
 
 template <typename InstrumentType, typename InstrumentTraits>
@@ -14,7 +14,10 @@ class Referential
 	typedef typename InstrumentTraits::InstrumentIDType InstrumentID;
 
 public:
-	void AddInstrument(std::shared_ptr<Instrument<InstrumentType, InstrumentTraits>>&& instrument);
+	// Aliases
+	using Instrument = GenericInstrument < InstrumentType, InstrumentTraits >;
+
+	void AddInstrument(std::shared_ptr<Instrument>&& instrument);
 
 	void TestProtobuf()
 	{
@@ -46,9 +49,9 @@ public:
 		}
 	}
 
-	std::weak_ptr<Instrument<InstrumentType, InstrumentTraits>> GetInstrument(const InstrumentID& id)
+	std::weak_ptr<Instrument> GetInstrument(const InstrumentID& id)
 	{
-		std::weak_ptr<Instrument<InstrumentType, InstrumentTraits>> instr(nullptr);
+		std::weak_ptr<Instrument> instr(nullptr);
 
 		const auto it = instrumentsMapping_.find(id);
 		if (it != instrumentsMapping_.end())
@@ -61,7 +64,7 @@ public:
 	}
 
 private:
-	std::unordered_map<InstrumentID, std::shared_ptr<Instrument<InstrumentType, InstrumentTraits>>> instrumentsMapping_;
+	std::unordered_map<InstrumentID, std::shared_ptr<Instrument>> instrumentsMapping_;
 };
 
 #include "Referential.hxx"
