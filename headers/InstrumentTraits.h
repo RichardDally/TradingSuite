@@ -1,3 +1,4 @@
+#pragma once
 #ifndef INSTRUMENT_TRAITS_H_
 #define INSTRUMENT_TRAITS_H_
 

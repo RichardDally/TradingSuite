@@ -1,3 +1,4 @@
+#pragma once
 #ifndef STOCK_INSTRUMENT_H_
 #define STOCK_INSTRUMENT_H_
 

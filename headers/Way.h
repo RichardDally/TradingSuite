@@ -1,3 +1,4 @@
+#pragma once
 #ifndef WAY_H_
 #define WAY_H_
 

@@ -1,3 +1,4 @@
+#pragma once
 #ifndef ORDER_BOOK_H_
 #define ORDER_BOOK_H_
 

@@ -1,3 +1,4 @@
+#pragma once
 #ifndef MATCHING_ENGINE_H_
 #define MATCHING_ENGINE_H_
 

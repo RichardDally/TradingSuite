@@ -1,3 +1,4 @@
+#pragma once
 #ifndef REFERENTIAL_H_
 #define REFERENTIAL_H_
 

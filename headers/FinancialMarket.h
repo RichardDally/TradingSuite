@@ -1,3 +1,4 @@
+#pragma once
 #ifndef FINANCIAL_MARKET_H_
 #define FINANCIAL_MARKET_H_
 

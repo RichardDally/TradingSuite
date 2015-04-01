@@ -1,3 +1,4 @@
+#pragma once
 #ifndef ORDER_TRAITS_H_
 #define ORDER_TRAITS_H_
 
