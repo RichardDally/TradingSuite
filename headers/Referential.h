@@ -52,6 +52,7 @@ public:
 		const auto it = instrumentsMapping_.find(id);
 		if (it != instrumentsMapping_.end())
 		{
+			// Build weak ptr from shared ptr
 			instr = it->second;
 		}
 
