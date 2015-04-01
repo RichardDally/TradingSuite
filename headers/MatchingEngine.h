@@ -14,7 +14,7 @@ class MatchingEngine
 	typedef typename OrderTraits::PriceType Price;
 
 	// Aliases
-	typedef Order<OrderTraits, InstrumentTraits> OrderType;
+	using Order = GenericOrder<OrderTraits, InstrumentTraits>;
 	typedef OrderBook<OrderTraits, InstrumentTraits> OrderBookType;
 
 public:
@@ -30,17 +30,17 @@ public:
 	/**
 	* @brief Find order book matching instrument id then add order to it
 	*/
-	bool AddOrder(OrderType& order);
+	bool AddOrder(Order& order);
 
 	/**
 	* @brief Find order book matching instrument id then modify order within
 	*/
-	bool ModOrder(OrderType& newOrder);
+	bool ModOrder(Order& newOrder);
 
 	/**
 	* @brief Find order book matching instrument id then delete order from it
 	*/
-	bool DelOrder(const OrderType& orderID);
+	bool DelOrder(const Order& orderID);
 
 private:
 	// Key: instrument id

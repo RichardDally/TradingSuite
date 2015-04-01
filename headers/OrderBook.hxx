@@ -4,7 +4,7 @@
 #include "OrderBook.h"
 
 template <typename OrderTraits, typename InstrumentTraits>
-bool OrderBook<OrderTraits, InstrumentTraits>::AddOrder(OrderType& order)
+bool OrderBook<OrderTraits, InstrumentTraits>::AddOrder(Order& order)
 {
 	bool result = false;
 
@@ -26,7 +26,7 @@ bool OrderBook<OrderTraits, InstrumentTraits>::AddOrder(OrderType& order)
 }
 
 template <typename OrderTraits, typename InstrumentTraits>
-bool OrderBook<OrderTraits, InstrumentTraits>::ModOrder(OrderType& newOrder)
+bool OrderBook<OrderTraits, InstrumentTraits>::ModOrder(Order& newOrder)
 {
 	bool result = false;
 	OrderType* order = nullptr;
@@ -66,7 +66,7 @@ bool OrderBook<OrderTraits, InstrumentTraits>::ModOrder(OrderType& newOrder)
 }
 
 template <typename OrderTraits, typename InstrumentTraits>
-bool OrderBook<OrderTraits, InstrumentTraits>::DelOrder(const OrderType& order)
+bool OrderBook<OrderTraits, InstrumentTraits>::DelOrder(const Order& order)
 {
 	bool result = false;
 
@@ -109,7 +109,7 @@ void OrderBook<OrderTraits, InstrumentTraits>::Dump() const
 }
 
 template <typename OrderTraits, typename InstrumentTraits>
-bool OrderBook<OrderTraits, InstrumentTraits>::GetOrder(const OrderID& orderID, OrderType& result) const
+bool OrderBook<OrderTraits, InstrumentTraits>::GetOrder(const OrderID& orderID, Order& result) const
 {
 	auto it = Find(orderID);
 	if (it != bid.end() && it != ask.end())

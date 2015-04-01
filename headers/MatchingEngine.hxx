@@ -13,7 +13,7 @@ void MatchingEngine<InstrumentType, OrderTraits, InstrumentTraits>::CreateOrderB
 }
 
 template <typename InstrumentType, typename OrderTraits, typename InstrumentTraits>
-bool MatchingEngine<InstrumentType, OrderTraits, InstrumentTraits>::AddOrder(OrderType& order)
+bool MatchingEngine<InstrumentType, OrderTraits, InstrumentTraits>::AddOrder(Order& order)
 {
 	bool result = false;
 
@@ -32,7 +32,7 @@ bool MatchingEngine<InstrumentType, OrderTraits, InstrumentTraits>::AddOrder(Ord
 }
 
 template <typename InstrumentType, typename OrderTraits, typename InstrumentTraits>
-bool MatchingEngine<InstrumentType, OrderTraits, InstrumentTraits>::ModOrder(OrderType& newOrder)
+bool MatchingEngine<InstrumentType, OrderTraits, InstrumentTraits>::ModOrder(Order& newOrder)
 {
 	bool result = false;
 
@@ -51,7 +51,7 @@ bool MatchingEngine<InstrumentType, OrderTraits, InstrumentTraits>::ModOrder(Ord
 }
 
 template <typename InstrumentType, typename OrderTraits, typename InstrumentTraits>
-bool MatchingEngine<InstrumentType, OrderTraits, InstrumentTraits>::DelOrder(const OrderType& orderID)
+bool MatchingEngine<InstrumentType, OrderTraits, InstrumentTraits>::DelOrder(const Order& orderID)
 {
 	bool result = false;
 

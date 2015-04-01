@@ -3,7 +3,7 @@
 #define ORDER_BOOK_H_
 
 #include <unordered_map>
-#include "Order.h"
+#include "GenericOrder.h"
 
 template <typename OrderTraits, typename InstrumentTraits>
 class OrderBook
@@ -14,7 +14,7 @@ class OrderBook
 	typedef typename OrderTraits::PriceType Price;
 
 	// Aliases
-	typedef Order<OrderTraits, InstrumentTraits> OrderType;
+	using Order = GenericOrder<OrderTraits, InstrumentTraits>;
 
 public:
 	OrderBook() = default;
@@ -40,18 +40,18 @@ public:
 	* @brief Add an order to order book
 	* @note order id is filled
 	*/
-	bool AddOrder(OrderType& order);
+	bool AddOrder(Order& order);
 
 	/**
 	* @brief Modify an order in order book
 	* @note order id may change
 	*/
-	bool ModOrder(OrderType& newOrder);
+	bool ModOrder(Order& newOrder);
 
 	/**
 	* @brief Delete an order from order book
 	*/
-	bool DelOrder(const OrderType& order);
+	bool DelOrder(const Order& order);
 
 	/**
 	* @brief Display on std::cout order book content
@@ -59,11 +59,11 @@ public:
 	*/
 	void Dump() const;
 
-	bool GetOrder(const OrderID& orderID, OrderType& result) const;
+	bool GetOrder(const OrderID& orderID, Order& result) const;
 
 private:
-	std::unordered_map<OrderID, OrderType> bid;
-	std::unordered_map<OrderID, OrderType> ask;
+	std::unordered_map<OrderID, Order> bid;
+	std::unordered_map<OrderID, Order> ask;
 
 	auto Find(const OrderID& orderID) -> decltype(bid.begin())
     {
