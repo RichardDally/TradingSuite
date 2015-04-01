@@ -24,15 +24,15 @@ public:
 	
 	// Note VS2013 does not support implicit generation of move constructors
 	OrderBook(OrderBook&& old)
-		: bid(move(old.bid)), ask(move(old.ask))
+		: bid(std::move(old.bid)), ask(std::move(old.ask))
 	{
 	}
 
 	// Note VS2013 does not support implicit generation of move assignment operators
 	OrderBook& operator=(OrderBook&& old)
 	{
-		bid = move(old.bid);
-		ask = move(old.ask);
+		bid = std::move(old.bid);
+		ask = std::move(old.ask);
 		return *this;
 	}
 
