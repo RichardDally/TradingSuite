@@ -14,11 +14,11 @@
     <ClInclude Include="..\headers\FinancialMarket.h" />
     <ClInclude Include="..\headers\FinancialMarket.hxx" />
     <ClInclude Include="..\headers\GenericInstrument.h" />
+    <ClInclude Include="..\headers\GenericOrder.h" />
     <ClInclude Include="..\headers\instrumentmessage.pb.h" />
     <ClInclude Include="..\headers\InstrumentTraits.h" />
     <ClInclude Include="..\headers\MatchingEngine.h" />
     <ClInclude Include="..\headers\MatchingEngine.hxx" />
-    <ClInclude Include="..\headers\Order.h" />
     <ClInclude Include="..\headers\OrderBook.h" />
     <ClInclude Include="..\headers\OrderBook.hxx" />
     <ClInclude Include="..\headers\OrderID.hxx" />
