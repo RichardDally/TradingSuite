@@ -20,7 +20,7 @@ void FinancialMarket<InstrumentType, OrderTraits, InstrumentTraits>::LoadReferen
 		referential_.AddInstrument(std::move(instrument));
 	}
 
-	referential_.TestProtobuf();
+	//referential_.TestProtobuf();
 }
 
 #endif
