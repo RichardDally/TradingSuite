@@ -1,7 +1,6 @@
 #ifndef MATCHING_ENGINE_H_
 #define MATCHING_ENGINE_H_
 
-#include <memory>
 #include <unordered_map>
 #include "OrderBook.h"
 
@@ -21,11 +20,25 @@ public:
 	// Instrument traits
 	typedef typename InstrumentTraits::InstrumentIDType InstrumentID;
 
+	/**
+	* @brief Create a raw order book
+	*/
 	void CreateOrderBook(const InstrumentID& id);
 
+	/**
+	* @brief Find order book matching instrument id then add order to it
+	*/
 	bool AddOrder(OrderType& order);
-	bool ModOrder(const OrderID& orderID, OrderType& newOrder);
-	bool DelOrder(const OrderID& orderID);
+
+	/**
+	* @brief Find order book matching instrument id then modify order within
+	*/
+	bool ModOrder(OrderType& newOrder);
+
+	/**
+	* @brief Find order book matching instrument id then delete order from it
+	*/
+	bool DelOrder(const OrderType& orderID);
 
 private:
 	// Key: instrument id
