@@ -22,6 +22,7 @@ public:
 
 	/**
 	* @brief Create a raw order book
+	* @note Existing order books are not overwritten
 	*/
 	void CreateOrderBook(const InstrumentID& id);
 
