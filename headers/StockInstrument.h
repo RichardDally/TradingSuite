@@ -16,6 +16,26 @@ public:
 	{
 	}
 
+	~StockInstrument() = default;
+	StockInstrument(const StockInstrument&) = delete;
+	StockInstrument& operator=(const StockInstrument&) = delete;
+
+	// Note VS2013 does not support implicit generation of move constructors
+	StockInstrument(StockInstrument&& old)
+		: id_(std::move(old.id_)), name_(std::move(old.name_)), isin_(std::move(old.isin_)), mnemo_(std::move(old.mnemo_))
+	{
+	}
+
+	// Note VS2013 does not support implicit generation of move assignment operators
+	StockInstrument& operator=(StockInstrument&& old)
+	{
+		id_ = std::move(old.id_);
+		name_ = std::move(old.name_);
+		isin_ = std::move(old.isin_);
+		mnemo_ = std::move(old.mnemo_);
+		return *this;
+	}
+
 	const InstrumentIDType& GetInstrumentID() const
 	{
 		// NOTE: Simple implementation, instrument id must be unique.
@@ -38,10 +58,11 @@ public:
 	}
 
 protected:
-	const InstrumentIDType id_;
-	const std::string name_;
-	const std::string isin_;
-	const std::string mnemo_;
+	// Note: do not forget to update move implementations.
+	InstrumentIDType id_;
+	std::string name_;
+	std::string isin_;
+	std::string mnemo_;
 };
 
 #endif
