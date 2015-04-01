@@ -4,74 +4,97 @@
 #include "OrderBook.h"
 
 template <typename OrderTraits, typename InstrumentTraits>
-OrderBook<OrderTraits, InstrumentTraits>::OrderBook()
-{
-}
-
-template <typename OrderTraits, typename InstrumentTraits>
 bool OrderBook<OrderTraits, InstrumentTraits>::AddOrder(OrderType& order)
 {
+	bool result = false;
+
 	// TODO: improve order id generation
 	if (order.way_ == Way::BUY)
 	{
-		static OrderID counter = 0;
-		bid.emplace(counter++, OrderType(order));
-		order.orderID_ = counter;
+		static OrderID bidCounter = 0;
+		order.orderID_ = bidCounter;
+		result = bid.emplace(bidCounter++, OrderType(order)).second;
 	}
 	else if (order.way_ == Way::SELL)
 	{
-		static OrderID counter = 0;
-		ask.emplace(counter++, OrderType(order));
-		order.orderID_ = counter;
+		static OrderID askCounter = 0;
+		order.orderID_ = askCounter;
+		result = ask.emplace(askCounter++, OrderType(order)).second;
+	}
+
+	return result;
+}
+
+template <typename OrderTraits, typename InstrumentTraits>
+bool OrderBook<OrderTraits, InstrumentTraits>::ModOrder(OrderType& newOrder)
+{
+	bool result = false;
+	OrderType* order = nullptr;
+
+	// Find order
+	if (order.way_ == Way::BUY)
+	{
+		auto it = bid.find(newOrder.orderID_);
+		if (it != bid.end())
+		{
+			order = &it->second;
+		}
+	}
+	else if (order.way_ == Way::SELL)
+	{
+		auto it = ask.find(newOrder.orderID_);
+		if (it != ask.end())
+		{
+			order = &it->second;
+		}
+	}
+
+	// Modify order
+	if (order)
+	{
+		order->way_ = newOrder.way_;
+		order->price_ = newOrder.price_;
+		order->quantity_ = newOrder.quantity_;
+		result = true;
 	}
 	else
 	{
-		return false;
+		// TODO: log order not found
 	}
-	return true;
+
+	return result;
 }
 
 template <typename OrderTraits, typename InstrumentTraits>
-bool OrderBook<OrderTraits, InstrumentTraits>::ModOrder(const OrderID& orderID, OrderType& newOrder)
+bool OrderBook<OrderTraits, InstrumentTraits>::DelOrder(const OrderType& order)
 {
-	auto it = bid.find(orderID);
-	if (it == bid.end())
+	bool result = false;
+
+	// Find order
+	if (order.way_ == Way::BUY)
 	{
-		it = ask.find(orderID);
-		if (it == ask.end())
+		auto it = bid.find(order.orderID_);
+		if (it != bid.end())
 		{
-			// OrderID has not been found
-			return false;
+			bid.erase(it);
+			result = true;
 		}
 	}
-	// Modify order
-	it->second.price_ = price;
-	it->second.quantity_ = quantity;
-	return true;
+	else if (order.way_ == Way::SELL)
+	{
+		auto it = ask.find(orderID);
+		if (it != ask.end())
+		{
+			ask.erase(it);
+			result = true;
+		}
+	}
+
+	return result;
 }
 
 template <typename OrderTraits, typename InstrumentTraits>
-bool OrderBook<OrderTraits, InstrumentTraits>::DelOrder(const OrderID& orderID)
-{
-	auto it = bid.find(orderID);
-	if (it != bid.end())
-	{
-		bid.erase(orderID);
-		return true;
-	}
-
-	it = ask.find(orderID);
-	if (it != ask.end())
-	{
-		ask.erase(orderID);
-		return true;
-	}
-
-	return false;
-}
-
-template <typename OrderTraits, typename InstrumentTraits>
-void OrderBook<OrderTraits, InstrumentTraits>::Dump()
+void OrderBook<OrderTraits, InstrumentTraits>::Dump() const
 {
 	std::cout << "--- Bid ---" << std::endl;
 	for (const auto& pair : bid)
