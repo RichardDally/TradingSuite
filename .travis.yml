@@ -7,7 +7,7 @@ compiler:
 before_install:
   - sudo ./travis-protobuf.sh
 
- before_script:
+before_script:
   - cmake .
 
 branches:
