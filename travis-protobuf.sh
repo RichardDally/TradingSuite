@@ -15,5 +15,5 @@ tar xf /tmp/protobuf-${PROTOBUF_VERSION}.tar.bz2 -C /tmp
 cd /tmp/protobuf-${PROTOBUF_VERSION}
 ./configure --enable-static --disable-shared --disable-dependency-tracking
 make -j8
-sudo make install
+make install
 cd $build_dir
