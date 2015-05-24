@@ -5,7 +5,7 @@ compiler:
   - clang
 
 before_install:
-  - sudo ./travis-protobuf.sh
+  - ./travis-protobuf.sh
 
 before_script:
   - cmake .
