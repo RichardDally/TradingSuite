@@ -7,13 +7,3 @@
 
 Windows:
 Don't forget to add in Instruments.pb.h: #pragma warning(disable : 4996)
-
-Environment variables example:
-CMAKE_C_COMPILER C:\Cygwin64\bin\gcc.exe
-CMAKE_CXX_COMPILER C:\Cygwin64\bin\g++.exe
-CMAKE_ROOT D:\Programmation\Tools\CMake3.0.2\share\cmake-3.0
-
-Cmake variables example:
-PROTOBUF_INCLUDE_DIR D:/Programmation/Tools/protobuf/src
-PROTOBUF_LIBRARY D:/Programmation/Tools/protobuf/vsprojects/Debug/libprotobuf.lib
-PROTOBUF_PROTOC_EXECUTABLE D:/Programmation/Tools/protobuf/vsprojects/Debug/protoc.exe

@@ -1,0 +1,9 @@
+Environment variables example:
+CMAKE_C_COMPILER C:\Cygwin64\bin\gcc.exe
+CMAKE_CXX_COMPILER C:\Cygwin64\bin\g++.exe
+CMAKE_ROOT D:\Programmation\Tools\CMake\share\cmake-3.2
+
+Cmake variables example:
+PROTOBUF_INCLUDE_DIR D:/Programmation/Tools/protobuf/src
+PROTOBUF_LIBRARY D:/Programmation/Tools/protobuf/vsprojects/Debug/libprotobuf.lib
+PROTOBUF_PROTOC_EXECUTABLE D:/Programmation/Tools/protobuf/vsprojects/Debug/protoc.exe
