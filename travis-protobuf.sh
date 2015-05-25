@@ -10,10 +10,19 @@ export PATH="/usr/local/bin:$PATH"
 export CXXFLAGS="$CXXFLAGS -fPIC"
 
 PROTOBUF_VERSION=2.6.1
-wget https://github.com/google/protobuf/releases/download/v${PROTOBUF_VERSION}/protobuf-${PROTOBUF_VERSION}.tar.bz2 -O /tmp/protobuf-${PROTOBUF_VERSION}.tar.bz2
-tar xf /tmp/protobuf-${PROTOBUF_VERSION}.tar.bz2 -C /tmp
-cd /tmp/protobuf-${PROTOBUF_VERSION}
+echo 'mkdir'
+mkdir protobuf-${PROTOBUF_VERSION}
+echo 'wget'
+wget https://github.com/google/protobuf/releases/download/v${PROTOBUF_VERSION}/protobuf-${PROTOBUF_VERSION}.tar.bz2 -O protobuf-${PROTOBUF_VERSION}/protobuf-${PROTOBUF_VERSION}.tar.bz2
+echo 'tar'
+tar xf protobuf-${PROTOBUF_VERSION}/protobuf-${PROTOBUF_VERSION}.tar.bz2 -C protobuf-${PROTOBUF_VERSION}/
+echo 'cd'
+cd protobuf-${PROTOBUF_VERSION}
+echo 'configure'
 ./configure --enable-static --disable-shared --disable-dependency-tracking
+echo 'make'
 make -j8
-#make install
+echo 'make install'
+make install
+echo 'cd'
 cd $build_dir
