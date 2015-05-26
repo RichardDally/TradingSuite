@@ -11,7 +11,7 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
 # Generate Protobuf header and source files
 protobuf_generate_cpp(PROTO_SRC PROTO_HEADERS thirdparty/protobuf/InstrumentMessage.proto)
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY bin)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 
 include_directories(headers)
 file(GLOB_RECURSE TRADING_SIMULATOR_FILES src/* headers/*)
