@@ -12,6 +12,7 @@ int main()
 
 	FinancialMarket<InstrumentType, decltype(simpleOrderTraits), decltype(simpleInstrumentTraits)> fmarket;
 	fmarket.LoadReferential();
+    fmarket.TestAddOrder();
 
 	int dummy;
 	std::cin >> dummy;

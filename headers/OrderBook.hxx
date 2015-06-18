@@ -1,25 +1,28 @@
+#pragma once
 #ifndef ORDER_BOOK_HXX_
 #define ORDER_BOOK_HXX_
 
 #include "OrderBook.h"
 
 template <typename OrderTraits, typename InstrumentTraits>
-bool OrderBook<OrderTraits, InstrumentTraits>::AddOrder(Order& order)
+bool OrderBook<OrderTraits, InstrumentTraits>::AddOrder(std::shared_ptr<Order>&& order)
 {
 	bool result = false;
 
 	// TODO: improve order id generation
-	if (order.way_ == Way::BUY)
+	if (order->way_ == Way::BUY)
 	{
 		static OrderID bidCounter = 0;
-		order.orderID_ = bidCounter;
-		result = bid.emplace(bidCounter++, OrderType(order)).second;
+		order->orderID_ = bidCounter;
+        bid[bidCounter++] = order;
+        return true;
 	}
-	else if (order.way_ == Way::SELL)
+	else if (order->way_ == Way::SELL)
 	{
 		static OrderID askCounter = 0;
-		order.orderID_ = askCounter;
-		result = ask.emplace(askCounter++, OrderType(order)).second;
+		order->orderID_ = askCounter;
+        ask[askCounter++] = order;
+        return true;
 	}
 
 	return result;
@@ -99,12 +102,12 @@ void OrderBook<OrderTraits, InstrumentTraits>::Dump() const
 	std::cout << "--- Bid ---" << std::endl;
 	for (const auto& pair : bid)
 	{
-		std::cout << "[" << pair.first << "] " << pair.second.quantity_ << "@" << pair.second.price_ << std::endl;
+		std::cout << "[" << pair.first << "] " << pair.second->quantity_ << "@" << pair.second->price_ << std::endl;
 	}
 	std::cout << "--- Ask ---" << std::endl;
 	for (const auto& pair : bid)
 	{
-		std::cout << "[" << pair.first << "] " << pair.second.quantity_ << "@" << pair.second.price_ << std::endl;
+		std::cout << "[" << pair.first << "] " << pair.second->quantity_ << "@" << pair.second->price_ << std::endl;
 	}
 }
 

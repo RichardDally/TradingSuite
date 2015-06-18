@@ -30,7 +30,7 @@ public:
 	/**
 	* @brief Find order book matching instrument id then add order to it
 	*/
-	bool AddOrder(Order& order);
+    bool AddOrder(std::shared_ptr<Order>&& order);
 
 	/**
 	* @brief Find order book matching instrument id then modify order within

@@ -2,6 +2,7 @@
 #ifndef ORDER_BOOK_H_
 #define ORDER_BOOK_H_
 
+#include <memory>
 #include <unordered_map>
 #include "GenericOrder.h"
 
@@ -40,7 +41,7 @@ public:
 	* @brief Add an order to order book
 	* @note order id is filled
 	*/
-	bool AddOrder(Order& order);
+	bool AddOrder(std::shared_ptr<Order>&& order);
 
 	/**
 	* @brief Modify an order in order book
@@ -62,8 +63,8 @@ public:
 	bool GetOrder(const OrderID& orderID, Order& result) const;
 
 private:
-	std::unordered_map<OrderID, Order> bid;
-	std::unordered_map<OrderID, Order> ask;
+    std::unordered_map<OrderID, std::shared_ptr<Order>> bid;
+    std::unordered_map<OrderID, std::shared_ptr<Order>> ask;
 
 	auto Find(const OrderID& orderID) -> decltype(bid.begin())
     {

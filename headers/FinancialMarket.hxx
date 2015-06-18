@@ -1,6 +1,10 @@
 #ifndef FINANCIAL_MARKET_HXX_
 #define FINANCIAL_MARKET_HXX_
 
+#include "Way.h"
+#include "GenericOrder.h"
+
+#include "OrderFactory.h"
 #include "FinancialMarket.h"
 
 template <typename InstrumentType, typename OrderTraits, typename InstrumentTraits>
@@ -22,5 +26,13 @@ void FinancialMarket<InstrumentType, OrderTraits, InstrumentTraits>::LoadReferen
 
 	//referential_.TestProtobuf();
 }
+
+template <typename InstrumentType, typename OrderTraits, typename InstrumentTraits>
+void FinancialMarket<InstrumentType, OrderTraits, InstrumentTraits>::TestAddOrder()
+{
+    auto order = OrderFactory::BuildOrder<GenericOrder<typename OrderTraits, typename InstrumentTraits>>(0, Way::BUY, 10, 15); 
+    matchingEngine_.AddOrder(std::move(order));
+}
+
 
 #endif

@@ -13,15 +13,15 @@ void MatchingEngine<InstrumentType, OrderTraits, InstrumentTraits>::CreateOrderB
 }
 
 template <typename InstrumentType, typename OrderTraits, typename InstrumentTraits>
-bool MatchingEngine<InstrumentType, OrderTraits, InstrumentTraits>::AddOrder(Order& order)
+bool MatchingEngine<InstrumentType, OrderTraits, InstrumentTraits>::AddOrder(std::shared_ptr<Order>&& order)
 {
 	bool result = false;
 
 	// Find order book related to instrument id
-	auto it = orderBooks_.find(order.instrumentID_);
-	if (it != orderBooks.end())
+	auto it = orderBooks_.find(order->instrumentID_);
+	if (it != orderBooks_.end())
 	{
-		result = it->second->AddOrder(order);
+		result = it->second.AddOrder(std::move(order));
 	}
 	else
 	{
