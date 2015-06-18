@@ -105,7 +105,7 @@ void OrderBook<OrderTraits, InstrumentTraits>::Dump() const
 		std::cout << "[" << pair.first << "] " << pair.second->quantity_ << "@" << pair.second->price_ << std::endl;
 	}
 	std::cout << "--- Ask ---" << std::endl;
-	for (const auto& pair : bid)
+	for (const auto& pair : ask)
 	{
 		std::cout << "[" << pair.first << "] " << pair.second->quantity_ << "@" << pair.second->price_ << std::endl;
 	}
