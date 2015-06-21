@@ -1,0 +1,13 @@
+- Download Boost
+- Compile boost with Visual:
+1- Go to the directory where Boost is unzipped and type ./bootstrap.bat
+2- b2 toolset=msvc-12.0 --variant=debug,release --build-type=complete --abbreviate-paths architecture=x86 address-model=32 install -j4
+-> For 64 bits, replace x86 by ia64
+
+More info:
+http://www.boost.org/build/doc/html/bbv2/overview/invocation.html
+
+IMPORTANT: do not forget to create a "lib" directory at boost root and move all .lib to this directory (for cmake)
+
+Cmake variables example:
+Boost_LIBRARY_DIR D:\Programmation\Libraries\boost_1_58_0\lib

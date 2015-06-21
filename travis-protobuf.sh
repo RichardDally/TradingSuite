@@ -23,6 +23,6 @@ echo 'configure'
 echo 'make'
 make -j8
 echo 'make install'
-make install
+sudo make install
 echo 'cd'
 cd $build_dir

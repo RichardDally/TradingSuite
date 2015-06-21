@@ -1,0 +1,5 @@
+- Download Google Test (https://code.google.com/p/googletest/downloads/list)
+- Compile for your platform
+- Add header path (gtest-1.7.0\include)
+- Add link path (e.g. D:/Programmation/Tools/gtest-1.7.0/msvc/gtest/Debug)
+- Add library gtestd.lib
