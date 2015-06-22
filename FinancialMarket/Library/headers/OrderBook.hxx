@@ -5,7 +5,7 @@
 #include "OrderBook.h"
 
 template <typename OrderTraits, typename InstrumentTraits>
-bool OrderBook<OrderTraits, InstrumentTraits>::AddOrder(std::shared_ptr<Order>&& order)
+bool OrderBook<OrderTraits, InstrumentTraits>::AddOrder(std::shared_ptr<OrderType>&& order)
 {
 	bool result = false;
 
@@ -29,7 +29,7 @@ bool OrderBook<OrderTraits, InstrumentTraits>::AddOrder(std::shared_ptr<Order>&&
 }
 
 template <typename OrderTraits, typename InstrumentTraits>
-bool OrderBook<OrderTraits, InstrumentTraits>::ModOrder(Order& newOrder)
+bool OrderBook<OrderTraits, InstrumentTraits>::ModOrder(OrderType& newOrder)
 {
 	bool result = false;
 	OrderType* order = nullptr;
@@ -69,7 +69,7 @@ bool OrderBook<OrderTraits, InstrumentTraits>::ModOrder(Order& newOrder)
 }
 
 template <typename OrderTraits, typename InstrumentTraits>
-bool OrderBook<OrderTraits, InstrumentTraits>::DelOrder(const Order& order)
+bool OrderBook<OrderTraits, InstrumentTraits>::DelOrder(const OrderType& order)
 {
 	bool result = false;
 
@@ -112,15 +112,22 @@ void OrderBook<OrderTraits, InstrumentTraits>::Dump() const
 }
 
 template <typename OrderTraits, typename InstrumentTraits>
-bool OrderBook<OrderTraits, InstrumentTraits>::GetOrder(const OrderID& orderID, Order& result) const
+typename OrderBook<OrderTraits, InstrumentTraits>::PointerType OrderBook<OrderTraits, InstrumentTraits>::GetOrder(const OrderID& orderID) const
 {
-	auto it = Find(orderID);
-	if (it != bid.end() && it != ask.end())
-	{
-		result = it->second;
-		return true;
-	}
-	return false;
+    OrderBook<OrderTraits, InstrumentTraits>::PointerType order;
+
+    auto it = bid.find(orderID);
+    if (it == bid.end())
+    {
+        it = ask.find(orderID);
+        if (it == ask.end())
+        {
+            return order;
+        }
+    }
+    
+    order = it->second;
+    return order;
 }
 
 #endif

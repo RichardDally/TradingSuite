@@ -14,10 +14,11 @@ class OrderBook
 	typedef typename OrderTraits::QuantityType Quantity;
 	typedef typename OrderTraits::PriceType Price;
 
-	// Aliases
-	using Order = GenericOrder<OrderTraits, InstrumentTraits>;
-
 public:
+    // Aliases
+    typedef typename GenericOrder<OrderTraits, InstrumentTraits> OrderType;
+    typedef typename std::shared_ptr<OrderType> PointerType;
+
 	OrderBook() = default;
 	~OrderBook() = default;
 	OrderBook(const OrderBook&) = delete;
@@ -41,18 +42,18 @@ public:
 	* @brief Add an order to order book
 	* @note order id is filled
 	*/
-	bool AddOrder(std::shared_ptr<Order>&& order);
+    bool AddOrder(std::shared_ptr<OrderType>&& order);
 
 	/**
 	* @brief Modify an order in order book
 	* @note order id may change
 	*/
-	bool ModOrder(Order& newOrder);
+    bool ModOrder(OrderType& newOrder);
 
 	/**
 	* @brief Delete an order from order book
 	*/
-	bool DelOrder(const Order& order);
+    bool DelOrder(const OrderType& order);
 
 	/**
 	* @brief Display on std::cout order book content
@@ -60,23 +61,15 @@ public:
 	*/
 	void Dump() const;
 
-	bool GetOrder(const OrderID& orderID, Order& result) const;
+    /**
+    * @brief Retrieve an order
+    * @note Existing shared_ptr is duplicated
+    */
+    PointerType GetOrder(const OrderID& orderID) const;
 
 private:
-    std::unordered_map<OrderID, std::shared_ptr<Order>> bid;
-    std::unordered_map<OrderID, std::shared_ptr<Order>> ask;
-
-	auto Find(const OrderID& orderID) -> decltype(bid.begin())
-    {
-		// TODO: test
-		static_assert(decltype(bid.begin()) == decltype(ask.begin()), "bid and ask containers must have same type");
-        auto it = bid.find(id);
-        if (it == bid.end())
-        {
-            it = ask.find(id);
-        }
-        return it;
-    }
+    std::unordered_map<OrderID, std::shared_ptr<OrderType>> bid;
+    std::unordered_map<OrderID, std::shared_ptr<OrderType>> ask;
 };
 
 #include "OrderBook.hxx"
