@@ -8,8 +8,8 @@ compiler:
 
 before_install:
   - sudo apt-get update -qq
-  - sudo apt-get install -y libprotobuf9 libprotoc9 protobuf-compiler
-  
+  - sudo apt-get install -y libprotobuf-dev protobuf-compiler
+
 before_script:
   - cmake .
 
