@@ -8,7 +8,8 @@ compiler:
 
 before_install:
   - sudo apt-get update -qq
-  - sudo apt-get install -y libprotobuf-dev protobuf-compiler libgtest-dev
+  - sudo apt-get install -y libprotobuf-dev protobuf-compiler  # Google Protocol Buffers
+  - sudo apt-get install -y libgtest-dev                       # Google Test
 
 install:
   - cd /usr/src/gtest
