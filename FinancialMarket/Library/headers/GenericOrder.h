@@ -23,7 +23,7 @@ struct GenericOrder
 
 	// Ctor used by matching engine
 	explicit GenericOrder(const OrderID& orderID, const InstrumentID& instrumentID, const Way way, const Quantity& quantity, const Price& price)
-		: orderID_(orderID), Order(instrumentID, way, quantity, price)
+        : orderID_(orderID), instrumentID_(instrumentID), way_(way), quantity_(quantity), price_(price)
 	{
 	}
 
