@@ -40,7 +40,7 @@ public:
 	/**
 	* @brief Find order book matching instrument id then delete order from it
 	*/
-	bool DelOrder(const Order& orderID);
+	bool DelOrder(const Order& order);
 
 private:
 	// Key: instrument id

@@ -38,7 +38,7 @@ bool MatchingEngine<InstrumentType, OrderTraits, InstrumentTraits>::ModOrder(Ord
 
 	// Find order book related to instrument id
 	auto it = orderBooks_.find(order.instrumentID_);
-	if (it != orderBooks.end())
+    if (it != orderBooks_.end())
 	{
 		result = it->second->ModOrder(newOrder);
 	}
@@ -51,15 +51,15 @@ bool MatchingEngine<InstrumentType, OrderTraits, InstrumentTraits>::ModOrder(Ord
 }
 
 template <typename InstrumentType, typename OrderTraits, typename InstrumentTraits>
-bool MatchingEngine<InstrumentType, OrderTraits, InstrumentTraits>::DelOrder(const Order& orderID)
+bool MatchingEngine<InstrumentType, OrderTraits, InstrumentTraits>::DelOrder(const Order& order)
 {
 	bool result = false;
 
 	// Find order book related to instrument id
 	auto it = orderBooks_.find(order.instrumentID_);
-	if (it != orderBooks.end())
+    if (it != orderBooks_.end())
 	{
-		result = it->second->DelOrder(orderID);
+        result = it->second->DelOrder(order.orderID_);
 	}
 	else
 	{

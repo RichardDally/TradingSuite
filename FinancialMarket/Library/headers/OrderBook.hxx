@@ -85,7 +85,7 @@ bool OrderBook<OrderTraits, InstrumentTraits>::DelOrder(const OrderType& order)
 	}
 	else if (order.way_ == Way::SELL)
 	{
-		auto it = ask.find(orderID);
+        auto it = ask.find(order.orderID_);
 		if (it != ask.end())
 		{
 			ask.erase(it);
