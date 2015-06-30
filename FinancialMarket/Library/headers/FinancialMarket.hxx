@@ -27,12 +27,4 @@ void FinancialMarket<InstrumentType, OrderTraits, InstrumentTraits>::LoadReferen
 	//referential_.TestProtobuf();
 }
 
-template <typename InstrumentType, typename OrderTraits, typename InstrumentTraits>
-void FinancialMarket<InstrumentType, OrderTraits, InstrumentTraits>::TestAddOrder()
-{
-    auto order = OrderFactory::BuildOrder<GenericOrder<typename OrderTraits, typename InstrumentTraits>>(0, Way::BUY, 10, 15); 
-    matchingEngine_.AddOrder(std::move(order));
-}
-
-
 #endif
