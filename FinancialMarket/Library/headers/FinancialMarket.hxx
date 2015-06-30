@@ -19,7 +19,7 @@ void FinancialMarket<InstrumentType, OrderTraits, InstrumentTraits>::LoadReferen
 
 	for (const auto& tuple : listing)
 	{
-		std::shared_ptr<InstrumentType> instrument(new typename InstrumentType(std::get<0>(tuple), std::get<1>(tuple), std::get<2>(tuple), std::get<3>(tuple)));
+		std::shared_ptr<InstrumentType> instrument(new InstrumentType(std::get<0>(tuple), std::get<1>(tuple), std::get<2>(tuple), std::get<3>(tuple)));
 		matchingEngine_.CreateOrderBook(instrument->GetInstrumentID());
 		referential_.AddInstrument(std::move(instrument));
 	}
