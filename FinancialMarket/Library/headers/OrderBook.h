@@ -16,8 +16,8 @@ class OrderBook
 
 public:
     // Aliases
-    typedef typename GenericOrder<OrderTraits, InstrumentTraits> OrderType;
-    typedef typename std::shared_ptr<OrderType> PointerType;
+    using OrderType = GenericOrder<OrderTraits, InstrumentTraits>;
+    using PointerType = std::shared_ptr<OrderType>;
 
 	OrderBook() = default;
 	~OrderBook() = default;
