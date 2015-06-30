@@ -37,7 +37,7 @@ bool MatchingEngine<InstrumentType, OrderTraits, InstrumentTraits>::ModOrder(Ord
 	bool result = false;
 
 	// Find order book related to instrument id
-	auto it = orderBooks_.find(order.instrumentID_);
+    auto it = orderBooks_.find(newOrder.instrumentID_);
     if (it != orderBooks_.end())
 	{
 		result = it->second->ModOrder(newOrder);
