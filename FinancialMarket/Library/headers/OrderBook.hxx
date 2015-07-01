@@ -35,7 +35,7 @@ bool OrderBook<OrderTraits, InstrumentTraits>::ModOrder(OrderType& newOrder)
 	OrderType* order = nullptr;
 
 	// Find order
-	if (order.way_ == Way::BUY)
+    if (newOrder.way_ == Way::BUY)
 	{
 		auto it = bid.find(newOrder.orderID_);
 		if (it != bid.end())
@@ -43,7 +43,7 @@ bool OrderBook<OrderTraits, InstrumentTraits>::ModOrder(OrderType& newOrder)
 			order = &it->second;
 		}
 	}
-	else if (order.way_ == Way::SELL)
+    else if (newOrder.way_ == Way::SELL)
 	{
 		auto it = ask.find(newOrder.orderID_);
 		if (it != ask.end())
