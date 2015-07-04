@@ -60,7 +60,7 @@ bool OrderBook<OrderTraits, InstrumentTraits>::DelOrder(const PointerType& order
 template <typename OrderTraits, typename InstrumentTraits>
 void OrderBook<OrderTraits, InstrumentTraits>::Dump() const
 {
-    static_assert(false, "Not implemented");
+    assert(!"Not implemented");
 }
 
 template <typename OrderTraits, typename InstrumentTraits>
