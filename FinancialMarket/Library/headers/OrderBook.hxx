@@ -14,14 +14,14 @@ bool OrderBook<OrderTraits, InstrumentTraits>::AddOrder(std::shared_ptr<OrderTyp
 	{
 		static OrderID bidCounter = 0;
 		order->orderID_ = bidCounter;
-        bid[bidCounter++] = order;
+        bid[bidCounter++] = std::move(order);
         return true;
 	}
 	else if (order->way_ == Way::SELL)
 	{
 		static OrderID askCounter = 0;
 		order->orderID_ = askCounter;
-        ask[askCounter++] = order;
+        ask[askCounter++] = std::move(order);
         return true;
 	}
 
