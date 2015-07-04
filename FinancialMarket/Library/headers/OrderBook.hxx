@@ -47,24 +47,11 @@ bool OrderBook<OrderTraits, InstrumentTraits>::DelOrder(const PointerType& order
 {
 	bool result = false;
 
-	// Find order
-	if (order.way_ == Way::BUY)
+    auto it = orders_.find(order.orderID_);
+    if (it != orders_.end())
 	{
-		auto it = bid.find(order.orderID_);
-		if (it != bid.end())
-		{
-			bid.erase(it);
-			result = true;
-		}
-	}
-	else if (order.way_ == Way::SELL)
-	{
-        auto it = ask.find(order.orderID_);
-		if (it != ask.end())
-		{
-			ask.erase(it);
-			result = true;
-		}
+        orders_.erase(it);
+		result = true;
 	}
 
 	return result;
