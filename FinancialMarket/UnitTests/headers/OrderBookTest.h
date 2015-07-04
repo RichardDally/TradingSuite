@@ -10,7 +10,7 @@ class OrderBookExposed : public OrderBook<OrderTraits, InstrumentTraits>
 public:
     const typename OrderBook<OrderTraits, InstrumentTraits>::OrderContainer& GetOrdersContainer() const
     {
-        return orders_;
+        return this->orders_;
     }
 };
 
