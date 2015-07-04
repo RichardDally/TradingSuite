@@ -6,11 +6,12 @@
 
 int main()
 {
-	InstrumentTraits<int> simpleInstrumentTraits;
-	OrderTraits<int, int, int> simpleOrderTraits;
-	typedef StockInstrument<decltype(simpleInstrumentTraits)> InstrumentType;
+    using SimpleInstrumentTraits = InstrumentTraits<int>;
+    using InstrumentType = StockInstrument<SimpleInstrumentTraits>;
+    using SimpleOrderIDType = int;
+    using SimpleOrderTraits = OrderTraits<SimpleOrderIDType, int, int>;
 
-	FinancialMarket<InstrumentType, decltype(simpleOrderTraits), decltype(simpleInstrumentTraits)> fmarket;
+    FinancialMarket<InstrumentType, SimpleOrderTraits, SimpleInstrumentTraits> fmarket;
 	fmarket.LoadReferential();
 
 	int dummy;
