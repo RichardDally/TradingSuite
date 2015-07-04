@@ -8,7 +8,7 @@ template <typename OrderTraits, typename InstrumentTraits>
 class OrderBookExposed : public OrderBook<OrderTraits, InstrumentTraits>
 {
 public:
-    const OrderBook<OrderTraits, InstrumentTraits>::OrderContainer& GetOrdersContainer() const
+    const typename OrderBook<OrderTraits, InstrumentTraits>::OrderContainer& GetOrdersContainer() const
     {
         return orders_;
     }
