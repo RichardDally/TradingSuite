@@ -9,6 +9,7 @@
 template <typename OrderTraits, typename InstrumentTraits>
 class OrderBook
 {
+protected:
 	// Order traits
 	typedef typename OrderTraits::OrderIDType OrderID;
 	typedef typename OrderTraits::QuantityType Quantity;
@@ -18,6 +19,8 @@ public:
     // Aliases
     using OrderType = GenericOrder<OrderTraits, InstrumentTraits>;
     using PointerType = std::shared_ptr<OrderType>;
+    using LightPointerType = std::unique_ptr<OrderType>;
+    using OrderContainer = std::unordered_map<OrderID, PointerType>;
 
 	OrderBook() = default;
 	~OrderBook() = default;
@@ -26,15 +29,14 @@ public:
 	
 	// Note VS2013 does not support implicit generation of move constructors
 	OrderBook(OrderBook&& old)
-		: bid(std::move(old.bid)), ask(std::move(old.ask))
+		: orders_(std::move(old.orders_))
 	{
 	}
 
 	// Note VS2013 does not support implicit generation of move assignment operators
 	OrderBook& operator=(OrderBook&& old)
 	{
-		bid = std::move(old.bid);
-		ask = std::move(old.ask);
+        this->orders_ = std::move(old.orders_);
 		return *this;
 	}
 
@@ -42,18 +44,18 @@ public:
 	* @brief Add an order to order book
 	* @note order id is filled
 	*/
-    bool AddOrder(std::shared_ptr<OrderType>&& order);
+    bool AddOrder(PointerType order);
 
 	/**
 	* @brief Modify an order in order book
 	* @note order id may change
 	*/
-    bool ModOrder(OrderType& newOrder);
+    PointerType ModOrder(LightPointerType&& newOrder);
 
 	/**
 	* @brief Delete an order from order book
 	*/
-    bool DelOrder(const OrderType& order);
+    bool DelOrder(const PointerType& order);
 
 	/**
 	* @brief Display on std::cout order book content
@@ -67,9 +69,8 @@ public:
     */
     PointerType GetOrder(const OrderID& orderID) const;
 
-private:
-    std::unordered_map<OrderID, std::shared_ptr<OrderType>> bid;
-    std::unordered_map<OrderID, std::shared_ptr<OrderType>> ask;
+protected:
+    OrderContainer orders_;
 };
 
 #include "OrderBook.hxx"

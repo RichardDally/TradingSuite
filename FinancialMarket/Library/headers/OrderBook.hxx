@@ -2,74 +2,48 @@
 #ifndef ORDER_BOOK_HXX_
 #define ORDER_BOOK_HXX_
 
+#include <iostream>
 #include "OrderBook.h"
 
 template <typename OrderTraits, typename InstrumentTraits>
-bool OrderBook<OrderTraits, InstrumentTraits>::AddOrder(std::shared_ptr<OrderType>&& order)
+bool OrderBook<OrderTraits, InstrumentTraits>::AddOrder(PointerType order)
 {
 	bool result = false;
 
 	// TODO: improve order id generation
-	if (order->way_ == Way::BUY)
-	{
-		static OrderID bidCounter = 0;
-		order->orderID_ = bidCounter;
-        bid[bidCounter++] = std::move(order);
-        return true;
-	}
-	else if (order->way_ == Way::SELL)
-	{
-		static OrderID askCounter = 0;
-		order->orderID_ = askCounter;
-        ask[askCounter++] = std::move(order);
-        return true;
-	}
+    static OrderID orderCounter = 0;
 
-	return result;
+    // Set order id for this new order
+    order->orderID_ = orderCounter;
+
+    //assert(orders_.find(orderCounter) == orders_.end());
+    orders_[orderCounter] = std::move(order);
+
+	return true;
 }
 
 template <typename OrderTraits, typename InstrumentTraits>
-bool OrderBook<OrderTraits, InstrumentTraits>::ModOrder(OrderType& newOrder)
+typename OrderBook<OrderTraits, InstrumentTraits>::PointerType OrderBook<OrderTraits, InstrumentTraits>::ModOrder(LightPointerType&& newOrder)
 {
-	bool result = false;
-	OrderType* order = nullptr;
-
-	// Find order
-    if (newOrder.way_ == Way::BUY)
-	{
-		auto it = bid.find(newOrder.orderID_);
-		if (it != bid.end())
-		{
-			order = &it->second;
-		}
-	}
-    else if (newOrder.way_ == Way::SELL)
-	{
-		auto it = ask.find(newOrder.orderID_);
-		if (it != ask.end())
-		{
-			order = &it->second;
-		}
-	}
+    // Retrieve existing order
+    auto order = GetOrder(newOrder->orderID_);
 
 	// Modify order
 	if (order)
 	{
-		order->way_ = newOrder.way_;
-		order->price_ = newOrder.price_;
-		order->quantity_ = newOrder.quantity_;
-		result = true;
+		order->price_ = newOrder->price_;
+		order->quantity_ = newOrder->quantity_;
 	}
 	else
 	{
 		// TODO: log order not found
 	}
 
-	return result;
+	return order;
 }
 
 template <typename OrderTraits, typename InstrumentTraits>
-bool OrderBook<OrderTraits, InstrumentTraits>::DelOrder(const OrderType& order)
+bool OrderBook<OrderTraits, InstrumentTraits>::DelOrder(const PointerType& order)
 {
 	bool result = false;
 
@@ -99,16 +73,7 @@ bool OrderBook<OrderTraits, InstrumentTraits>::DelOrder(const OrderType& order)
 template <typename OrderTraits, typename InstrumentTraits>
 void OrderBook<OrderTraits, InstrumentTraits>::Dump() const
 {
-	std::cout << "--- Bid ---" << std::endl;
-	for (const auto& pair : bid)
-	{
-		std::cout << "[" << pair.first << "] " << pair.second->quantity_ << "@" << pair.second->price_ << std::endl;
-	}
-	std::cout << "--- Ask ---" << std::endl;
-	for (const auto& pair : ask)
-	{
-		std::cout << "[" << pair.first << "] " << pair.second->quantity_ << "@" << pair.second->price_ << std::endl;
-	}
+    static_assert(false, "Not implemented");
 }
 
 template <typename OrderTraits, typename InstrumentTraits>
@@ -116,17 +81,12 @@ typename OrderBook<OrderTraits, InstrumentTraits>::PointerType OrderBook<OrderTr
 {
     OrderBook<OrderTraits, InstrumentTraits>::PointerType order;
 
-    auto it = bid.find(orderID);
-    if (it == bid.end())
+    auto it = orders_.find(orderID);
+    if (it != orders_.end())
     {
-        it = ask.find(orderID);
-        if (it == ask.end())
-        {
-            return order;
-        }
+        order = it->second;
     }
     
-    order = it->second;
     return order;
 }
 
