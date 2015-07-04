@@ -1,23 +1,40 @@
 #include <gtest/gtest.h>
 
-#include "OrderBook.h"
+#include <OrderBookTest.h>
 #include "OrderTraits.h"
 #include "OrderFactory.h"
 #include "InstrumentTraits.h"
 
+using SimpleInstrumentIDType = int;
+using SimpleOrderIDType = int;
+using SimpleQuantityType = int;
+using SimplePriceType = int;
+using SimpleInstrumentTraits = InstrumentTraits<int>;
+using SimpleOrderTraits = OrderTraits<SimpleOrderIDType, SimpleQuantityType, SimplePriceType>;
+using SimpleOrderType = GenericOrder<SimpleOrderTraits, SimpleInstrumentTraits>;
+
+const SimpleInstrumentIDType instrumentID = 42;
+
 TEST(OrderBookTest, AddOrder)
 {
-    using SimpleOrderIDType = int;
-    using SimpleInstrumentTraits = InstrumentTraits<int>;
-    using SimpleOrderTraits = OrderTraits<SimpleOrderIDType, int, int>;
-    using SimpleOrderType = GenericOrder<SimpleOrderTraits, SimpleInstrumentTraits>;
-    OrderBook<SimpleOrderTraits, SimpleInstrumentTraits> orderBook;
+    OrderBookExposed<SimpleOrderTraits, SimpleInstrumentTraits> orderBook;
+    auto genuineOrder = OrderFactory::BuildOrder<SimpleOrderType>(instrumentID, Way::BUY, 10, 15);
 
-    const SimpleOrderIDType orderID = 0;
-    auto genuineOrder = OrderFactory::BuildOrder<SimpleOrderType>(orderID, Way::BUY, 10, 15);
-    orderBook.AddOrder(std::move(genuineOrder));
-    // genuineOrder is now empty
-    auto retrievedOrder = orderBook.GetOrder(orderID);
-    EXPECT_TRUE(retrievedOrder.operator bool());
-    EXPECT_EQ(2, retrievedOrder.use_count());
+    const auto addingResult = orderBook.AddOrder(genuineOrder);
+    EXPECT_TRUE(addingResult);
+    EXPECT_EQ(1, orderBook.GetOrdersContainer().size());
+    EXPECT_EQ(2, genuineOrder.use_count());
+}
+
+TEST(OrderBookTest, ModifyOrder)
+{
+    OrderBookExposed<SimpleOrderTraits, SimpleInstrumentTraits> orderBook;
+    auto genuineOrder = OrderFactory::BuildOrder<SimpleOrderType>(instrumentID, Way::BUY, 10, 15);
+    const auto addingResult = orderBook.AddOrder(genuineOrder);
+    EXPECT_TRUE(addingResult);
+
+    // Modify existing order (increasing quantity)
+    auto modifiedOrder = orderBook.ModOrder(OrderFactory::BuildLightOrder<SimpleOrderType>(genuineOrder->orderID_, 30, 15));
+    EXPECT_TRUE(modifiedOrder.operator bool());
+    EXPECT_EQ(3, modifiedOrder.use_count());
 }
