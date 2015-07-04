@@ -4,13 +4,22 @@
 
 #include <memory>
 
-class OrderFactory
+struct OrderFactory
 {
-public:
+    /**
+    * @brief Create any order you want
+    * @note All orders must be created that way.
+    */
     template <typename OrderType, typename... Args>
     static std::shared_ptr<OrderType> BuildOrder(Args&&... args)
     {
         return std::make_shared<OrderType>(std::forward<Args>(args)...);
+    }
+
+    template <typename OrderType, typename... Args>
+    static std::unique_ptr<OrderType> BuildLightOrder(Args&&... args)
+    {
+        return std::unique_ptr<OrderType>(new OrderType(std::forward<Args>(args)...));
     }
 };
 
