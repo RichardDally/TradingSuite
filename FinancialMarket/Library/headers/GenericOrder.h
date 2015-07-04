@@ -15,7 +15,7 @@ struct GenericOrder
 	typedef typename OrderTraits::QuantityType Quantity;
 	typedef typename OrderTraits::PriceType Price;
 
-	// Ctor without order id (order is not registered in matching engine yet)
+	// Ctor without order id
 	explicit GenericOrder(const InstrumentID& instrumentID, const Way way, const Quantity& quantity, const Price& price)
 		: instrumentID_(instrumentID), way_(way), quantity_(quantity), price_(price)
 	{
@@ -26,6 +26,12 @@ struct GenericOrder
         : orderID_(orderID), instrumentID_(instrumentID), way_(way), quantity_(quantity), price_(price)
 	{
 	}
+
+    // Ctor used to modify existing orders
+    explicit GenericOrder(const OrderID& orderID, const Quantity& quantity, const Price& price)
+        : orderID_(orderID), quantity_(quantity), price_(price)
+    {
+    }
 
 	~GenericOrder() = default;
 	GenericOrder(const GenericOrder&) = delete;
