@@ -9,7 +9,9 @@ int main()
     using SimpleInstrumentTraits = InstrumentTraits<int>;
     using InstrumentType = StockInstrument<SimpleInstrumentTraits>;
     using SimpleOrderIDType = int;
-    using SimpleOrderTraits = OrderTraits<SimpleOrderIDType, int, int>;
+    using SimpleQuantityType = int;
+    using SimplePriceType = int;
+    using SimpleOrderTraits = OrderTraits<SimpleOrderIDType, SimpleQuantityType, SimplePriceType>;
 
     FinancialMarket<InstrumentType, SimpleOrderTraits, SimpleInstrumentTraits> fmarket;
 	fmarket.LoadReferential();
