@@ -4,6 +4,9 @@
 
 #include <OrderBook.h>
 
+/**
+* @brief Expose protected attributes/members of OrderBook class
+*/
 template <typename OrderTraits, typename InstrumentTraits>
 class OrderBookExposed : public OrderBook<OrderTraits, InstrumentTraits>
 {
