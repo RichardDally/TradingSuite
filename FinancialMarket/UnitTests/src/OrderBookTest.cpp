@@ -38,3 +38,17 @@ TEST(OrderBookTest, ModifyOrder)
     EXPECT_TRUE(modifiedOrder.operator bool());
     EXPECT_EQ(3, modifiedOrder.use_count());
 }
+
+TEST(OrderBookTest, DeleteOrder)
+{
+    OrderBookExposed<SimpleOrderTraits, SimpleInstrumentTraits> orderBook;
+    auto genuineOrder = OrderFactory::BuildOrder<SimpleOrderType>(instrumentID, Way::BUY, 10, 15);
+    const auto addingResult = orderBook.AddOrder(genuineOrder);
+    EXPECT_TRUE(addingResult);
+
+    // Delete existing order
+    auto result = orderBook.DelOrder(genuineOrder);
+    EXPECT_TRUE(result);
+    result = orderBook.DelOrder(genuineOrder);
+    EXPECT_FALSE(result);
+}
