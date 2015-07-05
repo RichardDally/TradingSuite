@@ -47,7 +47,7 @@ bool OrderBook<OrderTraits, InstrumentTraits>::DelOrder(const PointerType& order
 {
 	bool result = false;
 
-    auto it = orders_.find(order.orderID_);
+    auto it = orders_.find(order->orderID_);
     if (it != orders_.end())
 	{
         orders_.erase(it);
