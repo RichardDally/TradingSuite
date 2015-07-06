@@ -2,16 +2,14 @@
 #define FINANCIAL_MARKET_HXX_
 
 #include "Way.h"
-#include "GenericOrder.h"
-
-#include "OrderFactory.h"
 #include "FinancialMarket.h"
+#include "InstrumentFactory.h"
 
-template <typename InstrumentType, typename OrderTraits, typename InstrumentTraits>
-void FinancialMarket<InstrumentType, OrderTraits, InstrumentTraits>::LoadReferential()
+template <typename DerivedInstrument, typename OrderTraits, typename InstrumentTraits>
+void FinancialMarket<DerivedInstrument, OrderTraits, InstrumentTraits>::LoadReferential()
 {
 	// unique id, name, isin, mnemo
-	typedef std::tuple<typename InstrumentTraits::InstrumentIDType, const std::string, const std::string, const std::string> TupleType;
+    using TupleType = std::tuple<typename InstrumentTraits::InstrumentIDType, const std::string, const std::string, const std::string>;
 	std::vector<TupleType> listing;
 
 	listing.emplace_back(TupleType(0, "ACCOR", "FR0000120404", "AC"));
@@ -19,7 +17,7 @@ void FinancialMarket<InstrumentType, OrderTraits, InstrumentTraits>::LoadReferen
 
 	for (const auto& tuple : listing)
 	{
-		std::shared_ptr<InstrumentType> instrument(new InstrumentType(std::get<0>(tuple), std::get<1>(tuple), std::get<2>(tuple), std::get<3>(tuple)));
+        auto instrument = InstrumentFactory::BuildInstrument<DerivedInstrument>(std::get<0>(tuple), std::get<1>(tuple), std::get<2>(tuple), std::get<3>(tuple));
 		matchingEngine_.CreateOrderBook(instrument->GetInstrumentID());
 		referential_.AddInstrument(std::move(instrument));
 	}

@@ -5,15 +5,15 @@
 #include "Referential.h"
 #include "MatchingEngine.h"
 
-template <typename InstrumentType, typename OrderTraits, typename InstrumentTraits>
+template <typename DerivedInstrument, typename OrderTraits, typename InstrumentTraits>
 class FinancialMarket
 {
 public:
 	void LoadReferential();
 
 private:
-	Referential<InstrumentType, InstrumentTraits> referential_;
-	MatchingEngine<InstrumentType, OrderTraits, InstrumentTraits> matchingEngine_;
+    Referential<DerivedInstrument, InstrumentTraits> referential_;
+    MatchingEngine<DerivedInstrument, OrderTraits, InstrumentTraits> matchingEngine_;
 };
 
 #include "FinancialMarket.hxx"
