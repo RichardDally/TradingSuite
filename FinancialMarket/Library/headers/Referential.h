@@ -7,17 +7,21 @@
 #include "GenericInstrument.h"
 #include "InstrumentMessage.pb.h"
 
-template <typename InstrumentType, typename InstrumentTraits>
+template <typename DerivedInstrument, typename InstrumentTraits>
 class Referential
 {
+protected:
 	// Instrument traits
-	typedef typename InstrumentTraits::InstrumentIDType InstrumentID;
+    using InstrumentIDType = typename InstrumentTraits::InstrumentIDType;
 
 public:
 	// Aliases
-	using Instrument = GenericInstrument < InstrumentType, InstrumentTraits >;
+    using InstrumentType = GenericInstrument<DerivedInstrument, InstrumentTraits>;
+    using PointerType = std::shared_ptr<InstrumentType>;
+    using WeakPointerType = std::weak_ptr<InstrumentType>;
+    using InstrumentContainer = std::unordered_map<InstrumentIDType, PointerType>;
 
-	void AddInstrument(std::shared_ptr<Instrument>&& instrument);
+    void AddInstrument(PointerType&& instrument);
 
 	void TestProtobuf()
 	{
@@ -49,9 +53,9 @@ public:
 		}
 	}
 
-	std::weak_ptr<Instrument> GetInstrument(const InstrumentID& id)
+    WeakPointerType GetInstrument(const InstrumentIDType& id)
 	{
-		std::weak_ptr<Instrument> instr(nullptr);
+        WeakPointerType instr;
 
 		const auto it = instrumentsMapping_.find(id);
 		if (it != instrumentsMapping_.end())
@@ -63,8 +67,8 @@ public:
 		return instr;
 	}
 
-private:
-	std::unordered_map<InstrumentID, std::shared_ptr<Instrument>> instrumentsMapping_;
+protected:
+    InstrumentContainer instrumentsMapping_;
 };
 
 #include "Referential.hxx"
