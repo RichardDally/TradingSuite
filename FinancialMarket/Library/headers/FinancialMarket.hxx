@@ -17,9 +17,8 @@ void FinancialMarket<DerivedInstrument, OrderTraits, InstrumentTraits>::LoadRefe
 
 	for (const auto& tuple : listing)
 	{
-        auto instrument = InstrumentFactory::BuildInstrument<DerivedInstrument>(std::get<0>(tuple), std::get<1>(tuple), std::get<2>(tuple), std::get<3>(tuple));
-		matchingEngine_.CreateOrderBook(instrument->GetInstrumentID());
-		referential_.AddInstrument(std::move(instrument));
+        matchingEngine_.CreateOrderBook(std::get<0>(tuple));
+        referential_.AddInstrument(InstrumentFactory::BuildInstrument<DerivedInstrument>(std::get<0>(tuple), std::get<1>(tuple), std::get<2>(tuple), std::get<3>(tuple)));
 	}
 
 	//referential_.TestProtobuf();
