@@ -4,6 +4,7 @@
 
 #include <memory>
 #include <unordered_map>
+#include "StockInstrument.h"
 #include "GenericInstrument.h"
 #include "InstrumentMessage.pb.h"
 
