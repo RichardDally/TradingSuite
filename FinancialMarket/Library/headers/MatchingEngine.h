@@ -9,23 +9,23 @@ template <typename InstrumentType, typename OrderTraits, typename InstrumentTrai
 class MatchingEngine
 {
 	// Order traits
-	typedef typename OrderTraits::OrderIDType OrderID;
-	typedef typename OrderTraits::QuantityType Quantity;
-	typedef typename OrderTraits::PriceType Price;
+	using OrderIDType = typename OrderTraits::OrderIDType;
+	using QuantityType = typename OrderTraits::QuantityType;
+	using PriceType = typename OrderTraits::PriceType;
 
 	// Aliases
 	using Order = GenericOrder<OrderTraits, InstrumentTraits>;
-	typedef OrderBook<OrderTraits, InstrumentTraits> OrderBookType;
+	using OrderBookType = OrderBook<OrderTraits, InstrumentTraits>;
 
 public:
 	// Instrument traits
-	typedef typename InstrumentTraits::InstrumentIDType InstrumentID;
+	using InstrumentIDType = typename InstrumentTraits::InstrumentIDType;
 
 	/**
 	* @brief Create a raw order book
 	* @note Existing order books are not overwritten
 	*/
-	void CreateOrderBook(const InstrumentID& id);
+    void CreateOrderBook(const InstrumentIDType& id);
 
 	/**
 	* @brief Find order book matching instrument id then add order to it
@@ -45,7 +45,7 @@ public:
 private:
 	// Key: instrument id
 	// Value: order book
-	std::unordered_map<InstrumentID, OrderBookType> orderBooks_;
+    std::unordered_map<InstrumentIDType, OrderBookType> orderBooks_;
 };
 
 #include "MatchingEngine.hxx"

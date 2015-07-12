@@ -4,7 +4,7 @@
 #include "MatchingEngine.h"
 
 template <typename InstrumentType, typename OrderTraits, typename InstrumentTraits>
-void MatchingEngine<InstrumentType, OrderTraits, InstrumentTraits>::CreateOrderBook(const InstrumentID& id)
+void MatchingEngine<InstrumentType, OrderTraits, InstrumentTraits>::CreateOrderBook(const InstrumentIDType& id)
 {
 	if (orderBooks_.find(id) == orderBooks_.end())
 	{
