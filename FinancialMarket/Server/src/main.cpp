@@ -13,7 +13,7 @@ void ReadCin(std::atomic<bool>& run)
     while (run.load())
     {
         std::cin >> buffer;
-        if (stricmp(buffer.c_str(), "Quit") == 0)
+        if (buffer == "Quit")
         {
             run.store(false);
         }
@@ -22,7 +22,7 @@ void ReadCin(std::atomic<bool>& run)
 
 int main()
 {
-    std::atomic<bool> run = true;
+    std::atomic<bool> run(true);
     std::thread cinThread(ReadCin, std::ref(run));
 
     using SimpleInstrumentTraits = InstrumentTraits<int>;
