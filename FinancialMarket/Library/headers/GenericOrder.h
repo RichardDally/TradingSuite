@@ -67,7 +67,7 @@ struct GenericOrder
 	Way way_;
     Quantity quantity_;
     Price price_;
-    long long timestamp_;
+    long long timestamp_ = -1;
 };
 
 #endif
