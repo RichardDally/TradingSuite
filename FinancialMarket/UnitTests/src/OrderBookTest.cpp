@@ -1,9 +1,11 @@
 #include <gtest/gtest.h>
 
-#include <OrderBookTest.h>
-#include "OrderTraits.h"
-#include "OrderFactory.h"
-#include "InstrumentTraits.h"
+
+#include "OrderBookTest.h"
+#include <EpochTimestamp.hxx>
+#include <OrderTraits.h>
+#include <OrderFactory.h>
+#include <InstrumentTraits.h>
 
 using SimpleInstrumentIDType = int;
 using SimpleOrderIDType = int;
@@ -18,7 +20,7 @@ const SimpleInstrumentIDType instrumentID = 42;
 TEST(OrderBookTest, AddOrder)
 {
     OrderBookExposed<SimpleOrderTraits, SimpleInstrumentTraits> orderBook;
-    auto genuineOrder = OrderFactory::BuildOrder<SimpleOrderType>(instrumentID, Way::BUY, 10, 15);
+    auto genuineOrder = OrderFactory::BuildOrder<SimpleOrderType>(instrumentID, Way::BUY, 10, 15, EpochTimestamp());
 
     const auto addingResult = orderBook.AddOrder(genuineOrder);
     EXPECT_TRUE(addingResult);
@@ -29,7 +31,7 @@ TEST(OrderBookTest, AddOrder)
 TEST(OrderBookTest, ModifyOrder)
 {
     OrderBookExposed<SimpleOrderTraits, SimpleInstrumentTraits> orderBook;
-    auto genuineOrder = OrderFactory::BuildOrder<SimpleOrderType>(instrumentID, Way::BUY, 10, 15);
+    auto genuineOrder = OrderFactory::BuildOrder<SimpleOrderType>(instrumentID, Way::BUY, 10, 15, EpochTimestamp());
     const auto addingResult = orderBook.AddOrder(genuineOrder);
     EXPECT_TRUE(addingResult);
 
@@ -42,7 +44,7 @@ TEST(OrderBookTest, ModifyOrder)
 TEST(OrderBookTest, DeleteOrder)
 {
     OrderBookExposed<SimpleOrderTraits, SimpleInstrumentTraits> orderBook;
-    auto genuineOrder = OrderFactory::BuildOrder<SimpleOrderType>(instrumentID, Way::BUY, 10, 15);
+    auto genuineOrder = OrderFactory::BuildOrder<SimpleOrderType>(instrumentID, Way::BUY, 10, 15, EpochTimestamp());
     const auto addingResult = orderBook.AddOrder(genuineOrder);
     EXPECT_TRUE(addingResult);
 

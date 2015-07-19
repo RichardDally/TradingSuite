@@ -16,8 +16,8 @@ struct GenericOrder
 	typedef typename OrderTraits::PriceType Price;
 
 	// Ctor without order id
-	explicit GenericOrder(const InstrumentID& instrumentID, const Way way, const Quantity& quantity, const Price& price)
-		: instrumentID_(instrumentID), way_(way), quantity_(quantity), price_(price)
+	explicit GenericOrder(const InstrumentID& instrumentID, const Way way, const Quantity& quantity, const Price& price, const long long& timestamp)
+        : instrumentID_(instrumentID), way_(way), quantity_(quantity), price_(price), timestamp_(timestamp)
 	{
 	}
 
@@ -44,7 +44,8 @@ struct GenericOrder
 		instrumentID_(std::move(old.instrumentID_)),
 		way_(std::move(old.way_)),
 		quantity_(std::move(old.quantity_)),
-		price_(std::move(old.price_))
+		price_(std::move(old.price_)),
+        timestamp_(std::move(old.timestamp_))
 	{
 	}
 
@@ -56,6 +57,7 @@ struct GenericOrder
 		way_ = std::move(old.way_);
 		quantity_ = std::move(old.quantity_);
 		price_ = std::move(old.price_);
+        timestamp_ = std::move(old.timestamp_);
 		return *this;
 	}
 
@@ -65,6 +67,7 @@ struct GenericOrder
 	Way way_;
     Quantity quantity_;
     Price price_;
+    long long timestamp_;
 };
 
 #endif
