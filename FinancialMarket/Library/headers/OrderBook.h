@@ -34,7 +34,13 @@ public:
     // indexed by way
     // indexed by price
     // indexed by timestamp
-    using MultiIndexOrderContainer = multi_index_container<OrderType, indexed_by<ordered_non_unique<member<OrderType, Way, &OrderType::way_> >>>;
+    using MultiIndexOrderContainer = multi_index_container<PointerType,
+        indexed_by<
+        ordered_non_unique<member<OrderType, decltype(OrderType::way_), &OrderType::way_ >> ,
+        ordered_non_unique<member<OrderType, decltype(OrderType::timestamp_), &OrderType::timestamp_ >>,
+        ordered_non_unique<member<OrderType, decltype(OrderType::price_), &OrderType::price_>>
+        >
+    >;
 
 	OrderBook() = default;
 	~OrderBook() = default;
