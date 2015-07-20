@@ -1,4 +1,9 @@
-# Google's Protocol Buffer is mandatory
+# Boost framework
+# http://www.boost.org
+find_package(Boost REQUIRED)
+include_directories(${Boost_INCLUDE_DIR})
+
+# Google's Protocol Buffer
 # See https://github.com/google/protobuf
 find_package(Protobuf REQUIRED)
 include_directories(${PROTOBUF_INCLUDE_DIRS})

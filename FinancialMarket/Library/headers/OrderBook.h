@@ -2,6 +2,14 @@
 #ifndef ORDER_BOOK_H_
 #define ORDER_BOOK_H_
 
+#include <boost/multi_index_container.hpp>
+#include <boost/multi_index/ordered_index.hpp>
+#include <boost/multi_index/identity.hpp>
+#include <boost/multi_index/member.hpp>
+
+using namespace ::boost;
+using namespace ::boost::multi_index;
+
 #include <memory>
 #include <unordered_map>
 #include "GenericOrder.h"
@@ -21,6 +29,12 @@ public:
     using PointerType = std::shared_ptr<OrderType>;
     using LightPointerType = std::unique_ptr<OrderType>;
     using OrderContainer = std::unordered_map<OrderID, PointerType>;
+
+    // Multi index container:
+    // indexed by way
+    // indexed by price
+    // indexed by timestamp
+    using MultiIndexOrderContainer = multi_index_container<OrderType, indexed_by<ordered_non_unique<member<OrderType, Way, &OrderType::way_> >>>;
 
 	OrderBook() = default;
 	~OrderBook() = default;
