@@ -2,6 +2,7 @@
 #ifndef GENERIC_ORDER_H_
 #define GENERIC_ORDER_H_
 
+#include <iostream>
 #include "Way.h"
 
 template <typename OrderTraits, typename InstrumentTraits>
@@ -61,10 +62,21 @@ struct GenericOrder
 		return *this;
 	}
 
+    // Debug purpose
+    void Dump() const
+    {
+        std::cout << "OrderID: " << orderID_ << std::endl;
+        std::cout << "InstrumentID: " << instrumentID_ << std::endl;
+        std::cout << "Way: " << WayToString(way_) << std::endl;
+        std::cout << "Quantity: " << quantity_ << std::endl;
+        std::cout << "Price: " << price_ << std::endl;
+        std::cout << "Timestamp: " << timestamp_ << std::endl;
+    }
+
 	// Note: do not forget to update move implementations.
     OrderID orderID_; // TODO: initialize orderID_ with template specialization
 	InstrumentID instrumentID_;
-	Way way_;
+	Way way_ = Way::UNDEFINED;
     Quantity quantity_;
     Price price_;
     long long timestamp_ = -1;
