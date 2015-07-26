@@ -14,6 +14,11 @@ using namespace ::boost::multi_index;
 #include <unordered_map>
 #include "GenericOrder.h"
 
+// Tags for multi_index_container
+struct way {};
+struct timestamp {};
+struct price {};
+
 template <typename OrderTraits, typename InstrumentTraits>
 class OrderBook
 {
@@ -36,9 +41,9 @@ public:
     // indexed by timestamp
     using MultiIndexOrderContainer = multi_index_container<PointerType,
         indexed_by<
-        ordered_non_unique<member<OrderType, decltype(OrderType::way_), &OrderType::way_ >> ,
-        ordered_non_unique<member<OrderType, decltype(OrderType::timestamp_), &OrderType::timestamp_ >>,
-        ordered_non_unique<member<OrderType, decltype(OrderType::price_), &OrderType::price_>>
+        ordered_non_unique<tag<way>, member<OrderType, decltype(OrderType::way_), &OrderType::way_ >>,
+        ordered_non_unique<tag<timestamp>, member<OrderType, decltype(OrderType::timestamp_), &OrderType::timestamp_ >>,
+        ordered_non_unique<tag<price>, member<OrderType, decltype(OrderType::price_), &OrderType::price_>>
         >
     >;
 
