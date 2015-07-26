@@ -1,3 +1,5 @@
+project(FinancialMarketUnitTests CXX)
+
 # Boost
 # http://www.boost.org
 #find_package(Boost COMPONENTS unit_test_framework REQUIRED)
@@ -21,12 +23,25 @@ if(WIN32)
 	set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /MTd")
 endif()
 
-set(FINANCIAL_MARKET_UNIT_TESTS_BINARY FinancialMarketUnitTests)
-include_directories(${FINANCIAL_MARKET_UNIT_TESTS_PATH}/headers)
-file(GLOB_RECURSE FINANCIAL_MARKET_UNIT_TESTS_FILES ${FINANCIAL_MARKET_UNIT_TESTS_PATH}/headers/* ${FINANCIAL_MARKET_UNIT_TESTS_PATH}/src/*)
+# Include Boost headers
+include_directories(${Boost_INCLUDE_DIR})
+
+# Include Google's Protocol Buffer headers
+include_directories(${PROTOBUF_INCLUDE_DIRS})
+
+# Include FinancialMarketLibrary headers
+include_directories(${FinancialMarketLibrary_SOURCE_DIR}/headers)
+
+# Include FinancialMarketUnitTests headers
+include_directories(headers)
+
+# FinancialMarketUnitTests files
+file(GLOB_RECURSE FINANCIAL_MARKET_UNIT_TESTS_FILES headers/* src/*)
+
+add_executable(FinancialMarketUnitTests ${FINANCIAL_MARKET_UNIT_TESTS_FILES})
+
+include_directories(${FinancialMarketLibrary_BINARY_DIR})
+target_link_libraries(FinancialMarketUnitTests ${GTEST_BOTH_LIBRARIES} FinancialMarketLibrary)
 
 enable_testing()
-add_executable(${FINANCIAL_MARKET_UNIT_TESTS_BINARY} ${FINANCIAL_MARKET_UNIT_TESTS_FILES})
-target_link_libraries(${FINANCIAL_MARKET_UNIT_TESTS_BINARY} ${GTEST_BOTH_LIBRARIES})
-
-add_test(NAME ${FINANCIAL_MARKET_UNIT_TESTS_BINARY} COMMAND ${FINANCIAL_MARKET_UNIT_TESTS_BINARY})
+add_test(NAME FinancialMarketUnitTests COMMAND FinancialMarketUnitTests)

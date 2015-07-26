@@ -7,4 +7,4 @@ if("${CMAKE_SYSTEM_NAME}" MATCHES "Linux")
   list(APPEND CMAKE_CXX_FLAGS "-std=c++11 -pthread")
 endif()
 
-include(FinancialMarket/CMakeLists.txt)
+add_subdirectory(FinancialMarket)

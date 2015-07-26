@@ -1,6 +1,22 @@
-set(FINANCIAL_MARKET_SERVER_BINARY FinancialMarketServer)
-include_directories(${FINANCIAL_MARKET_SERVER_PATH}/headers)
-file(GLOB_RECURSE FINANCIAL_MARKET_SERVER_FILES ${FINANCIAL_MARKET_SERVER_PATH}/headers/* ${FINANCIAL_MARKET_SERVER_PATH}/src/*)
+project(FinancialMarketServer CXX)
 
-add_executable(${FINANCIAL_MARKET_SERVER_BINARY} ${FINANCIAL_MARKET_SERVER_FILES})
-target_link_libraries(${FINANCIAL_MARKET_SERVER_BINARY} ${FINANCIAL_MARKET_LIBRARY_BINARY})
+# Include Boost headers
+include_directories(${Boost_INCLUDE_DIR})
+
+# Include Google's Protocol Buffer headers
+include_directories(${PROTOBUF_INCLUDE_DIRS})
+
+# Include FinancialMarketLibrary headers
+include_directories(${FinancialMarketLibrary_SOURCE_DIR}/headers)
+
+# Include FinancialMarketServer headers
+include_directories(headers)
+
+# FinancialMarketServer files
+file(GLOB_RECURSE FINANCIAL_MARKET_SERVER_FILES headers/* src/*)
+
+add_executable(FinancialMarketServer ${FINANCIAL_MARKET_SERVER_FILES})
+
+# Adding library headers
+include_directories(${FinancialMarketLibrary_BINARY_DIR})
+target_link_libraries(FinancialMarketServer FinancialMarketLibrary)

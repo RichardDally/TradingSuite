@@ -1,8 +1,16 @@
-# Setting paths for convenience
-set(FINANCIAL_MARKET_LIBRARY_PATH FinancialMarket/Library)
-set(FINANCIAL_MARKET_SERVER_PATH FinancialMarket/Server)
-set(FINANCIAL_MARKET_UNIT_TESTS_PATH FinancialMarket/UnitTests)
+# Boost framework
+# http://www.boost.org
+find_package(Boost REQUIRED)
 
-include(FinancialMarket/Library/CMakeLists.txt)
-include(FinancialMarket/Server/CMakeLists.txt)
-include(FinancialMarket/UnitTests/CMakeLists.txt)
+# Google's Protocol Buffer
+# See https://github.com/google/protobuf
+find_package(Protobuf REQUIRED)
+
+# Setting output directories
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+
+add_subdirectory(Library)
+add_subdirectory(Server)
+add_subdirectory(UnitTests)

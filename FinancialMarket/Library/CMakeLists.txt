@@ -1,21 +1,17 @@
-# Boost framework
-# http://www.boost.org
-find_package(Boost REQUIRED)
-include_directories(${Boost_INCLUDE_DIR})
+project(FinancialMarketLibrary CXX)
 
-# Google's Protocol Buffer
-# See https://github.com/google/protobuf
-find_package(Protobuf REQUIRED)
+# Protobuf headers
 include_directories(${PROTOBUF_INCLUDE_DIRS})
-include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 # Generate Protobuf header and source files
-protobuf_generate_cpp(PROTO_SRC PROTO_HEADERS thirdparty/protobuf/InstrumentMessage.proto)
+protobuf_generate_cpp(PROTO_SRC PROTO_HEADERS ../../thirdparty/protobuf/InstrumentMessage.proto)
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
+# Other projects depends on these generated files
+#set(PROTO_SRC ${PROTO_SRC} PARENT_SCOPE)
+set(PROTO_HEADERS ${PROTO_HEADERS} PARENT_SCOPE)
 
-set(FINANCIAL_MARKET_LIBRARY_BINARY FinancialMarketLibrary)
-include_directories(${FINANCIAL_MARKET_LIBRARY_PATH}/headers)
-file(GLOB_RECURSE FINANCIAL_MARKET_LIBRARY_FILES ${FINANCIAL_MARKET_LIBRARY_PATH}/headers/* ${FINANCIAL_MARKET_LIBRARY_PATH}/src/*)
+# List all files for Library project
+file(GLOB_RECURSE FINANCIAL_MARKET_LIBRARY_FILES headers/* src/*)
 
-add_library(${FINANCIAL_MARKET_LIBRARY_BINARY} STATIC ${FINANCIAL_MARKET_LIBRARY_FILES} ${PROTO_SRC} ${PROTO_HEADERS})
+include_directories(headers)
+add_library(FinancialMarketLibrary STATIC ${FINANCIAL_MARKET_LIBRARY_FILES} ${PROTO_SRC} ${PROTO_HEADERS})
