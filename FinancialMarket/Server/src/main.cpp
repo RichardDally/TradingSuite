@@ -35,9 +35,11 @@ int main()
     FinancialMarket<DerivedInstrumentType, SimpleOrderTraits, SimpleInstrumentTraits> fmarket;
 	fmarket.LoadReferential();
 
+    std::cout << "Type Quit to leave" << std::endl;
     while (run.load())
     {
         // main loop
+        std::this_thread::sleep_for(std::chrono::milliseconds(5));
     }
     
     run.store(false);
