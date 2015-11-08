@@ -74,8 +74,8 @@ struct GenericOrder
     }
 
 	// Note: do not forget to update move implementations.
-    OrderID orderID_; // TODO: initialize orderID_ with template specialization
-	InstrumentID instrumentID_;
+    OrderID orderID_ {};
+    InstrumentID instrumentID_ {};
 	Way way_ = Way::UNDEFINED;
     Quantity quantity_;
     Price price_;
