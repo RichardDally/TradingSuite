@@ -2,6 +2,12 @@ sudo: required
 
 language: cpp
 
+env:
+  global:
+   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
+   #   via the "travis encrypt" command using the project repo's public key
+   - secure: "XGbNuX1/Ml77E4m5ySksEbDE8C509jl1XA5+kE/TQO3zuDWyhG04Dapz/etUqanxedQw0b8j2Rhy+ZQZROCw8TVHHWiN0kGwBmkoUSJTWNknjpv7V/yu7Zp+Y7U+2rG2OCBDceZJprx7caZIsPt4CSH82MZcGtBAIbvm19cBuitYw1ApJOcTcowVN6RmkOBAu4+ElyWeOvRrjuwZ3ugOx0zmYmrONRi619MNIdMRuZ9r9jNYllmeFPlDSXH+qb94uiqfJLPAFYVChhlnnvLvmFYT7OHEfERKeZVTiXTwkkJmP2X/GT4vKAMAqUV4fRSMBKAxSdpVYcxTC9eOi+0R6V3eJzLpv0Ca9n7o6IipyLBo6Ly7cTjseUfAkSc1i5cGzArLtsTCgskipCYTkIL2NcGWazTlugEpNhb+nL6ULz5NAZpPfzokQdZ38pWsNs5ClTe5imsFRmmQsUsGnA3X1q7q74AVJpSgzLuAbNDJNcDNl1toqkUdLWnS5zYztnXxg+LeupbB0tuGd0dGDqVHiwuSDGU4vu25ci+KooalAAozgvj8rm4DZ4hHdXBcS2DrAJEomgVroiHdLqWryl1Xg8JcKzolPNsBCoDa28sxMi94ZDOef6fcuQ6FTgEJRqOYQPmjlUz2reY3rkHzZQn40bDkC+m7k4PREA0Np5vKegk="
+
 compiler:
   - gcc
   - clang
@@ -23,6 +29,13 @@ install:
   - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
 
 addons:
+  coverity_scan:
+    project:
+      name: LeFlou/TradingSuite
+    notification_email: leflou@gmx.com
+    build_command_prepend: "cmake ."
+    build_command: "make"
+    branch_pattern: coverity_scan
   apt:
     sources:
     - ubuntu-toolchain-r-test
@@ -39,7 +52,7 @@ script:
 
 branches:
   only:
-    - master
+    - coverity_scan
 
 notifications:
   email: true
