@@ -5,5 +5,7 @@
 - Modify library path (where protobuf has been compiled)
 - Add library: libprotobuf.lib
 
-Windows:
+Windows example:
+protoc.exe --proto_path=/D/Programmation/Projects/C++/TradingSuite/ThirdParty/protobuf --cpp_out=. /D/Programmation/Projects/C++/TradingSuite/ThirdParty/protobuf/InstrumentMessage.proto
+
 Don't forget to add in Instruments.pb.h: #pragma warning(disable : 4996)
