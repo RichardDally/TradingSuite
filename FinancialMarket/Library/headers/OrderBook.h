@@ -16,11 +16,6 @@ using namespace ::boost::multi_index;
 #include <unordered_map>
 #include "GenericOrder.h"
 
-// Tags for multi_index_container
-struct way {};
-struct timestamp {};
-struct price {};
-
 template <typename OrderTraits, typename InstrumentTraits>
 class OrderBook
 {
