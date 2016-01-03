@@ -1,6 +1,0 @@
-Path examples for CMake:
-GTEST_INCLUDE_DIR: D:\Programmation\Tools\googletest\googletest\include
-GTEST_LIBRARY: D:\Programmation\Tools\googletest\googletest\build\Release\gtest.lib
-GTEST_LIBRARY_DEBUG: D:\Programmation\Tools\googletest\googletest\build\Debug\gtest.lib
-GTEST_MAIN_LIBRARY: D:\Programmation\Tools\googletest\googletest\build\Release\gtest_main.lib
-GTEST_MAIN_LIBRARY_DEBUG: D:\Programmation\Tools\googletest\googletest\build\Debug\gtest_main.lib
