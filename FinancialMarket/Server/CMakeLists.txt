@@ -1,5 +1,9 @@
 project(FinancialMarketServer CXX)
 
+# Boost framework
+# http://www.boost.org
+find_package(Boost REQUIRED)
+
 # Include Boost headers
 include_directories(${Boost_INCLUDE_DIR})
 
@@ -7,7 +11,7 @@ include_directories(${Boost_INCLUDE_DIR})
 include_directories(${PROTOBUF_INCLUDE_DIRS})
 
 # Include FinancialMarketLibrary headers
-include_directories(${FinancialMarketLibrary_SOURCE_DIR}/headers)
+include_directories(${FinancialMarketCore_SOURCE_DIR}/headers)
 
 # Include FinancialMarketServer headers
 include_directories(headers)
@@ -17,6 +21,6 @@ file(GLOB_RECURSE FINANCIAL_MARKET_SERVER_FILES headers/* src/*)
 
 add_executable(FinancialMarketServer ${FINANCIAL_MARKET_SERVER_FILES})
 
-# Adding library headers
-include_directories(${FinancialMarketLibrary_BINARY_DIR})
-target_link_libraries(FinancialMarketServer FinancialMarketLibrary)
+# Adding FinancialMarketCore headers
+include_directories(${FinancialMarketCore_BINARY_DIR})
+target_link_libraries(FinancialMarketServer FinancialMarketCore)

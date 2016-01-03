@@ -17,20 +17,32 @@ project(FinancialMarketUnitTests CXX)
 find_package(GTest REQUIRED)
 include_directories(${GTEST_INCLUDE_DIRS})
 
-if(WIN32)
+# Windows (x86 and x64) specific instructions for GTest
+if (WIN32)
 	# GTest is static compiled by default
 	set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MT")
 	set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /MTd")
 endif()
+
+# Google's Protocol Buffer
+# See https://github.com/google/protobuf
+find_package(Protobuf REQUIRED)
 
 # Include Boost headers
 include_directories(${Boost_INCLUDE_DIR})
 
 # Include Google's Protocol Buffer headers
 include_directories(${PROTOBUF_INCLUDE_DIRS})
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
-# Include FinancialMarketLibrary headers
-include_directories(${FinancialMarketLibrary_SOURCE_DIR}/headers)
+# Include generated protobuf message headers
+include_directories(${ProtobufMessages_BINARY_DIR})
+
+# Include FinancialMarketCore headers
+include_directories(${FinancialMarketCore_SOURCE_DIR}/headers)
+
+# Include ProtobufMessages template serialization helpers
+include_directories(${ProtobufMessages_SOURCE_DIR}/headers)
 
 # Include FinancialMarketUnitTests headers
 include_directories(headers)
@@ -40,8 +52,7 @@ file(GLOB_RECURSE FINANCIAL_MARKET_UNIT_TESTS_FILES headers/* src/*)
 
 add_executable(FinancialMarketUnitTests ${FINANCIAL_MARKET_UNIT_TESTS_FILES})
 
-include_directories(${FinancialMarketLibrary_BINARY_DIR})
-target_link_libraries(FinancialMarketUnitTests ${GTEST_BOTH_LIBRARIES} FinancialMarketLibrary)
+target_link_libraries(FinancialMarketUnitTests ${GTEST_BOTH_LIBRARIES} ${PROTOBUF_LIBRARIES} FinancialMarketCore ProtobufMessages)
 
 enable_testing()
 add_test(NAME FinancialMarketUnitTests COMMAND FinancialMarketUnitTests)
