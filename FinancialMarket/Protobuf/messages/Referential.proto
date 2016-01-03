@@ -1,0 +1,14 @@
+syntax = "proto3";
+package PB;
+
+message Referential
+{
+	repeated Instrument instrument = 1;
+	message Instrument
+	{
+		int32 id = 1;
+		string name = 2;
+		string isin = 3;
+		string mnemo = 4;
+	}
+}
