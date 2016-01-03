@@ -1,5 +1,6 @@
 #include "Way.h"
 #include <type_traits>
+#include <cstddef> // size_t typedef
 
 namespace
 {
