@@ -7,6 +7,10 @@ compiler:
   - clang
 
 before_install:
+ - sudo apt-get update -qq
+# Update CMake
+ - yes | sudo add-apt-repository ppa:kalakris/cmake
+ - cmake --version
 # Building Google Test Framework
   - git clone https://github.com/google/googletest.git gtest
   - cmake -Bgtest/googletest/build -Hgtest/googletest/
@@ -17,7 +21,6 @@ before_install:
   - cmake --build protobuf/cmake/build --config Release
 
 install:
-  - sudo apt-get update -qq
 # Installing Boost libraries
   - sudo apt-get install -y libboost-all-dev
 # Use g++4.9 and not 4.6 (C++11 missing)
