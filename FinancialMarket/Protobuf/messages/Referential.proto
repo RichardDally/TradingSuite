@@ -3,7 +3,7 @@ package PB;
 
 message Referential
 {
-	repeated Instrument instruments = 1;
+	repeated Instrument instrument = 1;
 	message Instrument
 	{
 		optional int32 id = 1;
