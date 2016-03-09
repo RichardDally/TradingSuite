@@ -5,7 +5,7 @@
 #include <Referential.pb.h>
 
 template <typename AssociativeContainer>
-auto EncodeReferential(const AssociativeContainer& instruments)
+std::tuple<std::string, bool> EncodeReferential(const AssociativeContainer& instruments)
 {
     GOOGLE_PROTOBUF_VERIFY_VERSION;
 
@@ -31,7 +31,7 @@ auto EncodeReferential(const AssociativeContainer& instruments)
 }
 
 template <typename AssociativeContainer, typename DerivedInstrumentType>
-auto DecodeReferential(const std::string& serializedReferential)
+std::tuple<AssociativeContainer, bool> DecodeReferential(const std::string& serializedReferential)
 {
     GOOGLE_PROTOBUF_VERIFY_VERSION;
 
