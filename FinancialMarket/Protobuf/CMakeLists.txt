@@ -15,7 +15,9 @@ endif()
 include_directories(${PROTOBUF_INCLUDE_DIRS})
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
+file(GLOB_RECURSE PROTOBUF_SOURCE_FILES headers/* src/*)
+
 # Generate Protobuf header and source files
 protobuf_generate_cpp(PROTO_SRC PROTO_HEADERS messages/Referential.proto)
 
-add_library(ProtobufMessages STATIC ${PROTO_SRC} ${PROTO_HEADERS})
+add_library(ProtobufMessages STATIC ${PROTO_SRC} ${PROTO_HEADERS} ${PROTOBUF_SOURCE_FILES})
