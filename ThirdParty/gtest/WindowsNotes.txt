@@ -1,2 +1,0 @@
-Path examples:
-GTEST_INCLUDE_DIR: D:\Programmation\Tools\gtest-1.7.0\include

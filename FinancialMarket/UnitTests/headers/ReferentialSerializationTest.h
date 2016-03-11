@@ -1,0 +1,6 @@
+#pragma once
+#ifndef REFERENTIAL_SERIALIZATION_TEST_H_
+#define REFERENTIAL_SERIALIZATION_TEST_H_
+
+
+#endif

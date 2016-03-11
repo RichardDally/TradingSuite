@@ -66,15 +66,13 @@ void OrderBook<OrderTraits, InstrumentTraits>::Dump() const
 template <typename OrderTraits, typename InstrumentTraits>
 typename OrderBook<OrderTraits, InstrumentTraits>::PointerType OrderBook<OrderTraits, InstrumentTraits>::GetOrder(const OrderID& orderID) const
 {
-    OrderBook<OrderTraits, InstrumentTraits>::PointerType order;
-
     auto it = orders_.find(orderID);
     if (it != orders_.end())
     {
-        order = it->second;
+        return it->second;
     }
     
-    return order;
+    return nullptr;
 }
 
 #endif
