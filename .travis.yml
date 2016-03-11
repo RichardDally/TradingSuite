@@ -39,7 +39,7 @@ script:
 
 branches:
   only:
-    - unstable
+    - master
 
 notifications:
   email: true
