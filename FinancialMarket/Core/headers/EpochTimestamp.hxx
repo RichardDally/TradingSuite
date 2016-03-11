@@ -16,9 +16,8 @@ struct is_chrono_duration<std::chrono::duration<Rep, Period>>
     static const bool value = true;
 };
 
-// TODO: improve with trailing decltype instead hardcoded long long type
 template <typename Duration = std::chrono::microseconds>
-long long EpochTimestamp()
+auto EpochTimestamp() -> decltype(std::chrono::duration_cast<Duration>(Duration()).count())
 {
     static_assert(is_chrono_duration<Duration>::value, "Duration must be a std::chrono::duration");
     auto duration = std::chrono::steady_clock::now().time_since_epoch();

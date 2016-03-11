@@ -4,6 +4,8 @@
 
 #include <boost/multi_index_container.hpp>
 #include <boost/multi_index/ordered_index.hpp>
+#include <boost/multi_index/composite_key.hpp>
+#include <boost/multi_index/hashed_index.hpp>
 #include <boost/multi_index/identity.hpp>
 #include <boost/multi_index/member.hpp>
 
@@ -13,11 +15,6 @@ using namespace ::boost::multi_index;
 #include <memory>
 #include <unordered_map>
 #include "GenericOrder.h"
-
-// Tags for multi_index_container
-struct way {};
-struct timestamp {};
-struct price {};
 
 template <typename OrderTraits, typename InstrumentTraits>
 class OrderBook
@@ -35,15 +32,19 @@ public:
     using LightPointerType = std::unique_ptr<OrderType>;
     using OrderContainer = std::unordered_map<OrderID, PointerType>;
 
-    // Multi index container:
-    // indexed by way
-    // indexed by price
-    // indexed by timestamp
     using MultiIndexOrderContainer = multi_index_container<PointerType,
         indexed_by<
-        ordered_non_unique<tag<way>, member<OrderType, decltype(OrderType::way_), &OrderType::way_ >>,
-        ordered_non_unique<tag<timestamp>, member<OrderType, decltype(OrderType::timestamp_), &OrderType::timestamp_ >>,
-        ordered_non_unique<tag<price>, member<OrderType, decltype(OrderType::price_), &OrderType::price_>>
+            ordered_non_unique<
+                composite_key<
+                    OrderType,
+                    member<OrderType, decltype(OrderType::way_), &OrderType::way_>,
+                    member<OrderType, decltype(OrderType::price_), &OrderType::price_>,
+                    member<OrderType, decltype(OrderType::timestamp_), &OrderType::timestamp_>
+                >
+            >,
+            hashed_unique<
+                member<OrderType, decltype(OrderType::orderID_), &OrderType::orderID_>
+            >
         >
     >;
 
