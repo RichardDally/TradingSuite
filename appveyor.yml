@@ -14,11 +14,7 @@ build_script:
 - cmake --build gtest/googletest/build --config %CONFIGURATION%
 # Trading Suite
 - cmake -G "Visual Studio 14 2015 Win64" ..
-- cmake --build . --target ALL_BUILD --config %CONFIGURATION% \
--DBoost_INCLUDE_DIR:string=C:\\Libraries\\boost_1_59_0 \
--DGTEST_INCLUDE_DIR:string=gtest\\googletest\\include \
--DGTEST_LIBRARY:string=gtest\\googletest\\build\\Release\\gtest.lib \
--DGTEST_MAIN_LIBRARY:string=gtest\\googletest\\build\\Release\\gtest_main.lib \
+- cmake --build . --target ALL_BUILD --config %CONFIGURATION% -DBoost_INCLUDE_DIR:string=C:\\Libraries\\boost_1_59_0 -DGTEST_INCLUDE_DIR:string=gtest\\googletest\\include -DGTEST_LIBRARY:string=gtest\\googletest\\build\\Release\\gtest.lib -DGTEST_MAIN_LIBRARY:string=gtest\\googletest\\build\\Release\\gtest_main.lib
 #- cd ..
 # Building for VS2013
 #- mkdir VS2013
