@@ -3,29 +3,41 @@ version: 1.0.{build}
 configuration:
   - Release
 
+environment:
+  BOOST_VERSION: boost_1_59_0
+
+init:
+  - set BOOST_ROOT=C:\Libraries\%BOOST_VERSION%
+  - set PATH=C:\Program Files (x86)\MSBuild\14.0\Bin;%PATH%
+  - cmd: msbuild /version
+  - cmd: set
+
 build_script:
-# Building for VS2015
-- set PATH=C:\Program Files (x86)\MSBuild\14.0\Bin;%PATH%
-- set Boost_INCLUDE_DIR=C:\Libraries\boost_1_59_0
-- mkdir VS2015
-- cd VS2015
-# Google Test
-- git clone https://github.com/google/googletest.git gtest
-- cmake -G "Visual Studio 14 2015 Win64" -Bgtest/googletest/build -Hgtest/googletest/
-- cmake --build gtest/googletest/build --config %CONFIGURATION%
-# Protobuf
-- git clone -b v2.6.0 https://github.com/google/protobuf.git protobuf
-- cmake -G "Visual Studio 14 2015 Win64" -Bprotobuf\cmake\build -Hprotobuf\cmake -Dprotobuf_BUILD_TESTS:boolean=false
-- cmake --build protobuf/cmake/build --config %CONFIGURATION%
-# Trading Suite
-- cmake -G "Visual Studio 14 2015 Win64" ..
-- cmake --build . --target ALL_BUILD --config %CONFIGURATION% -DBoost_INCLUDE_DIR:string=C:\\Libraries\\boost_1_59_0 -DGTEST_INCLUDE_DIR:string=gtest\\googletest\\include -DGTEST_LIBRARY:string=gtest\\googletest\\build\\Release\\gtest.lib -DGTEST_MAIN_LIBRARY:string=gtest\\googletest\\build\\Release\\gtest_main.lib
-#- cd ..
-# Building for VS2013
-#- mkdir VS2013
-#- cd VS2013
-#- cmake -G "Visual Studio 12 2013 Win64" ..
-#- cmake --build . --target ALL_BUILD --config %CONFIGURATION%
+  # Building for VS2015
+  - set Boost_INCLUDE_DIR=%BOOST_ROOT%
+  - mkdir VS2015
+  - cd VS2015
+
+  # Google Test
+  - git clone https://github.com/google/googletest.git gtest
+  - cmake -G "Visual Studio 14 2015 Win64" -Bgtest/googletest/build -Hgtest/googletest/
+  - cmake --build gtest/googletest/build --config %CONFIGURATION%
+
+  # Protobuf
+  - git clone -b v2.6.0 https://github.com/google/protobuf.git protobuf
+  - cmake -G "Visual Studio 14 2015 Win64" -Bprotobuf\build -Hprotobuf -Dprotobuf_BUILD_TESTS:boolean=false
+  - cmake --build protobuf/build --config %CONFIGURATION%
+
+  # Trading Suite
+  - cmake -G "Visual Studio 14 2015 Win64" ..
+  - cmake --build . --target ALL_BUILD --config %CONFIGURATION% -DBoost_INCLUDE_DIR:string=%BOOST_ROOT% -DGTEST_INCLUDE_DIR:string=gtest\\googletest\\include -DGTEST_LIBRARY:string=gtest\\googletest\\build\\Release\\gtest.lib -DGTEST_MAIN_LIBRARY:string=gtest\\googletest\\build\\Release\\gtest_main.lib
+
+  #- cd ..
+  # Building for VS2013
+  #- mkdir VS2013
+  #- cd VS2013
+  #- cmake -G "Visual Studio 12 2013 Win64" ..
+  #- cmake --build . --target ALL_BUILD --config %CONFIGURATION%
 
 build:
   verbosity: detailed
