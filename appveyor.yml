@@ -24,8 +24,8 @@ build_script:
   - cmake --build gtest/googletest/build --config %CONFIGURATION%
 
   # Protobuf
-  - git clone -b v2.6.0 https://github.com/google/protobuf.git protobuf
-  - cmake -G "Visual Studio 14 2015 Win64" -Bprotobuf\build -Hprotobuf -Dprotobuf_BUILD_TESTS:boolean=false
+  - git clone -b v3.0.0-beta-2 https://github.com/google/protobuf.git protobuf
+  - cmake -G "Visual Studio 14 2015 Win64" -Bprotobuf\cmake\build -Hprotobuf\cmake -Dprotobuf_BUILD_TESTS:boolean=false
   - cmake --build protobuf/build --config %CONFIGURATION%
 
   # Trading Suite
