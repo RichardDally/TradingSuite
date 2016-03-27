@@ -1,11 +1,7 @@
 Trading Suite - C++ financial stuff
 ===================================================
 
-Continuous Integration `master` branch: [![Build Status](https://travis-ci.org/RichardDally/TradingSuite.svg?branch=master)](https://travis-ci.org/RichardDally/TradingSuite)
-
-Continuous Integration `unstable` branch: [![Build Status](https://travis-ci.org/RichardDally/TradingSuite.svg?branch=unstable)](https://travis-ci.org/RichardDally/TradingSuite)
-
-Static analysis `coverity_scan` branch: <a href="https://scan.coverity.com/projects/RichardDally-tradingsuite">
-  <img alt="Coverity Scan Build Status"
-       src="https://scan.coverity.com/projects/RichardDally-tradingsuite/badge.svg"/>
-</a>
+| Continuous Integration |                                                                                      master                                                                                     |                                                                                       unstable                                                                                      | coverity_scan |
+|:----------------------:|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:-------------:|
+| GNU/Linux              |                      [![Build Status](https://travis-ci.org/RichardDally/TradingSuite.svg?branch=master)](https://travis-ci.org/RichardDally/TradingSuite)                      |                                             [![Build Status](https://travis-ci.org/RichardDally/TradingSuite.svg?branch=unstable)](https://travis-ci.org/RichardDally/TradingSuite) | <a href="https://scan.coverity.com/projects/RichardDally-tradingsuite"><img alt="Coverity Scan Build Status" src="https://scan.coverity.com/projects/RichardDally-tradingsuite/badge.svg"/></a>       |
+| Windows                | [![Build status](https://ci.appveyor.com/api/projects/status/894s1rj80gy4qlwn/branch/master?svg=true)](https://ci.appveyor.com/project/RichardDally/tradingsuite/branch/master) | [![Build status](https://ci.appveyor.com/api/projects/status/894s1rj80gy4qlwn/branch/unstable?svg=true)](https://ci.appveyor.com/project/RichardDally/tradingsuite/branch/unstable) |               |
