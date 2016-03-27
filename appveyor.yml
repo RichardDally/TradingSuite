@@ -15,6 +15,11 @@ init:
 build_script:
   # Building for VS2015
   - set Boost_INCLUDE_DIR=%BOOST_ROOT%
+  - set PROTOBUF_LIBRARY=%cd%\VS2015\protobuf\cmake\build\Release\libprotobuf.lib
+  - set PROTOBUF_INCLUDE_DIR=%cd%\VS2015\protobuf\src
+  - set GTEST_LIBRARY=%cd%\VS2015\googletest\googletest\build\Release\gtest.lib
+  - set GTEST_INCLUDE_DIR=%cd%\VS2015\googletest\googletest\include
+  - set GTEST_MAIN_LIBRARY=%cd%\VS2015\googletest\googletest\build\Release\gtest_main.lib
   - mkdir VS2015
   - cd VS2015
 
@@ -30,7 +35,7 @@ build_script:
 
   # Trading Suite
   - cmake -G "Visual Studio 14 2015 Win64" ..
-  - cmake --build . --target ALL_BUILD --config %CONFIGURATION% -DBoost_INCLUDE_DIR:string=%BOOST_ROOT% -DGTEST_INCLUDE_DIR:string=gtest\\googletest\\include -DGTEST_LIBRARY:string=gtest\\googletest\\build\\Release\\gtest.lib -DGTEST_MAIN_LIBRARY:string=gtest\\googletest\\build\\Release\\gtest_main.lib
+  - cmake --build . --target ALL_BUILD --config %CONFIGURATION%
 
   #- cd ..
   # Building for VS2013
