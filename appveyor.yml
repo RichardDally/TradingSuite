@@ -9,8 +9,6 @@ environment:
 init:
   - set BOOST_ROOT=C:\Libraries\%BOOST_VERSION%
   - set PATH=C:\Program Files (x86)\MSBuild\14.0\Bin;%PATH%
-  - cmd: msbuild /version
-  - cmd: set
 
 build_script:
   # Building for VS2015
@@ -48,5 +46,5 @@ build_script:
 build:
   verbosity: detailed
 
-on_finish:
-  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+#on_finish:
+#- ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
