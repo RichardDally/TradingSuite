@@ -17,6 +17,7 @@ build_script:
   - set Boost_INCLUDE_DIR=%BOOST_ROOT%
   - set PROTOBUF_LIBRARY=%cd%\VS2015\protobuf\cmake\build\Release\libprotobuf.lib
   - set PROTOBUF_INCLUDE_DIR=%cd%\VS2015\protobuf\src
+  - set PROTOBUF_PROTOC_EXECUTABLE=%cd%\VS2015\protobuf\cmake\build\Release\protoc.exe
   - set GTEST_LIBRARY=%cd%\VS2015\googletest\googletest\build\Release\gtest.lib
   - set GTEST_INCLUDE_DIR=%cd%\VS2015\googletest\googletest\include
   - set GTEST_MAIN_LIBRARY=%cd%\VS2015\googletest\googletest\build\Release\gtest_main.lib
