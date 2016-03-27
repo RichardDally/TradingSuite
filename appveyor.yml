@@ -25,12 +25,12 @@ build_script:
   - cd VS2015
 
   # Google Test
-  - git clone https://github.com/google/googletest.git gtest
+  - git clone https://github.com/google/googletest.git
   - cmake -G "Visual Studio 14 2015 Win64" -Bgtest/googletest/build -Hgtest/googletest/
   - cmake --build gtest/googletest/build --config %CONFIGURATION%
 
   # Protobuf
-  - git clone -b v3.0.0-beta-2 https://github.com/google/protobuf.git protobuf
+  - git clone -b v3.0.0-beta-2 https://github.com/google/protobuf.git
   - cmake -G "Visual Studio 14 2015 Win64" -Bprotobuf\cmake\build -Hprotobuf\cmake -Dprotobuf_BUILD_TESTS:boolean=false
   - cmake --build protobuf/cmake/build --config %CONFIGURATION%
 
