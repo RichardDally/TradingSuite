@@ -10,6 +10,7 @@ class FinancialMarket
 {
 public:
 	void LoadReferential();
+    void Run();
 
 private:
     Referential<DerivedInstrument, InstrumentTraits> referential_;
