@@ -2,7 +2,8 @@
 #ifndef REFERENTIAL_SERVER_H_
 #define REFERENTIAL_SERVER_H_
 
-#include <boost/asio.hpp>
+#include <boost/asio/ip/tcp.hpp>
+#include <boost/asio/io_service.hpp>
 
 class ReferentialServer
 {
