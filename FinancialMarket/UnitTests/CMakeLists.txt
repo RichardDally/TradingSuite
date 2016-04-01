@@ -41,6 +41,9 @@ include_directories(${ProtobufMessages_BINARY_DIR})
 # Include FinancialMarketCore headers
 include_directories(${FinancialMarketCore_SOURCE_DIR}/headers)
 
+# Include FinancialMarketServer headers
+include_directories(${FinancialMarketServer_SOURCE_DIR}/headers)
+
 # Include ProtobufMessages template serialization helpers
 include_directories(${ProtobufMessages_SOURCE_DIR}/headers)
 

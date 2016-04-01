@@ -2,7 +2,11 @@ project(FinancialMarketServer CXX)
 
 # Boost framework
 # http://www.boost.org
-find_package(Boost REQUIRED)
+find_package(Boost 1.40.0 REQUIRED COMPONENTS system date_time regex)
+
+# Google's Protocol Buffer
+# See https://github.com/google/protobuf
+find_package(Protobuf REQUIRED)
 
 # Include Boost headers
 include_directories(${Boost_INCLUDE_DIR})
@@ -23,4 +27,4 @@ add_executable(FinancialMarketServer ${FINANCIAL_MARKET_SERVER_FILES})
 
 # Adding FinancialMarketCore headers
 include_directories(${FinancialMarketCore_BINARY_DIR})
-target_link_libraries(FinancialMarketServer FinancialMarketCore)
+target_link_libraries(FinancialMarketServer FinancialMarketCore ${Boost_LIBRARIES})
