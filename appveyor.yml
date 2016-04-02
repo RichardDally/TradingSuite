@@ -19,6 +19,12 @@ build_script:
   - set GTEST_LIBRARY=%cd%\VS2015\googletest\googletest\build\Release\gtest.lib
   - set GTEST_INCLUDE_DIR=%cd%\VS2015\googletest\googletest\include
   - set GTEST_MAIN_LIBRARY=%cd%\VS2015\googletest\googletest\build\Release\gtest_main.lib
+  - set Boost_DATE_TIME_LIBRARY_DEBUG=%BOOST_ROOT%\lib64-msvc-14.0\libboost_date_time-vc140-mt-sgd-1_60.lib
+  - set Boost_DATE_TIME_LIBRARY_RELEASE=%BOOST_ROOT%\lib64-msvc-14.0\libboost_date_time-vc140-mt-s-1_60.lib
+  - set Boost_REGEX_LIBRARY_DEBUG=%BOOST_ROOT%\lib64-msvc-14.0\libboost_regex-vc140-mt-sgd-1_60.lib
+  - set Boost_REGEX_LIBRARY_RELEASE=%BOOST_ROOT%\lib64-msvc-14.0\libboost_regex-vc140-mt-s-1_60.lib
+  - set Boost_SYSTEM_LIBRARY_DEBUG=%BOOST_ROOT%\lib64-msvc-14.0\libboost_system-vc140-mt-sgd-1_60.lib
+  - set Boost_SYSTEM_LIBRARY_RELEASE=%BOOST_ROOT%\lib64-msvc-14.0\libboost_system-vc140-mt-s-1_60.lib
   - mkdir VS2015
   - cd VS2015
 
