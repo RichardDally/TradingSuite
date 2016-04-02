@@ -12,7 +12,7 @@ int main()
     using SimplePriceType = int;
     using SimpleOrderTraits = OrderTraits<SimpleOrderIDType, SimpleQuantityType, SimplePriceType>;
 
-    FinancialMarket<DerivedInstrumentType, SimpleOrderTraits, SimpleInstrumentTraits> fmarket;
+    FinancialMarket<DerivedInstrumentType, SimpleOrderTraits, SimpleInstrumentTraits> fmarket(42000);
 	fmarket.LoadReferential();
     fmarket.Run();
 
