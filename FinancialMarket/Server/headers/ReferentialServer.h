@@ -2,13 +2,13 @@
 #ifndef REFERENTIAL_SERVER_H_
 #define REFERENTIAL_SERVER_H_
 
-#include <boost/asio/ip/tcp.hpp>
-#include <boost/asio/io_service.hpp>
+#include <thread>
+#include <boost/asio.hpp>
 
 class ReferentialServer
 {
 public:
-    explicit ReferentialServer(boost::asio::io_service& io_service, const short port);
+    explicit ReferentialServer(const short port);
     ~ReferentialServer() = default;
     ReferentialServer(const ReferentialServer&) = delete;
     ReferentialServer& operator=(const ReferentialServer&) = delete;
@@ -19,7 +19,11 @@ public:
     void SetReferential(std::string&& referential);
 
 private:
+    void Accept();
+
     std::string referential_;
+    boost::asio::io_service service_;
+    std::thread serviceThread_;
     boost::asio::ip::tcp::socket socket_;
     boost::asio::ip::tcp::acceptor acceptor_;
 };
