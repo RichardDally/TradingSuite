@@ -6,10 +6,6 @@
 
 struct InstrumentFactory
 {
-    /**
-    * @brief Create any order you want
-    * @note All orders must be created that way.
-    */
     template <typename DerivedInstrument, typename... Args>
     static std::shared_ptr<DerivedInstrument> BuildInstrument(Args&&... args)
     {
