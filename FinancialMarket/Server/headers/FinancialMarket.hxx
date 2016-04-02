@@ -46,7 +46,7 @@ template<typename DerivedInstrument, typename OrderTraits, typename InstrumentTr
 inline void FinancialMarket<DerivedInstrument, OrderTraits, InstrumentTraits>::Run()
 {
     std::atomic<bool> run(true);
-    std::thread cinThread([](std::atomic<bool>& run)
+    std::thread cinThread([&run]()
     {
         std::string buffer;
 
@@ -58,8 +58,7 @@ inline void FinancialMarket<DerivedInstrument, OrderTraits, InstrumentTraits>::R
                 run.store(false);
             }
         }
-    }
-    , std::ref(run));
+    });
 
     //referentialServer_.Start();
 
