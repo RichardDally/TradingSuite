@@ -10,11 +10,12 @@ template <typename DerivedInstrument, typename OrderTraits, typename InstrumentT
 class FinancialMarket
 {
 public:
-    FinancialMarket(const short port);
+    FinancialMarket(const unsigned short port);
 	void LoadReferential();
     void Run();
 
 private:
+    boost::asio::io_service ioService_;
     ReferentialServer referentialServer_;
     Referential<DerivedInstrument, InstrumentTraits> referential_;
     MatchingEngine<DerivedInstrument, OrderTraits, InstrumentTraits> matchingEngine_;

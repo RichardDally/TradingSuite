@@ -11,8 +11,8 @@
 #include <iostream>
 
 template <typename DerivedInstrument, typename OrderTraits, typename InstrumentTraits>
-FinancialMarket<DerivedInstrument, OrderTraits, InstrumentTraits>::FinancialMarket(const short port)
-    : referentialServer_(port)
+FinancialMarket<DerivedInstrument, OrderTraits, InstrumentTraits>::FinancialMarket(const unsigned short port)
+    : referentialServer_(ioService_, port)
 {
 }
 
@@ -60,7 +60,10 @@ inline void FinancialMarket<DerivedInstrument, OrderTraits, InstrumentTraits>::R
         }
     });
 
-    //referentialServer_.Start();
+    std::thread ioServiceThread([this]()
+    {
+        ioService_.run();
+    });
 
     std::cout << "Type Quit to leave" << std::endl;
     while (run.load())
@@ -69,9 +72,8 @@ inline void FinancialMarket<DerivedInstrument, OrderTraits, InstrumentTraits>::R
         std::this_thread::sleep_for(std::chrono::milliseconds(5));
     }
 
-    //referentialServer_.Stop();
-
-    run.store(false);
+    ioService_.stop();
+    ioServiceThread.join();
     cinThread.join();
 }
 
