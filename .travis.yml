@@ -6,6 +6,16 @@ compiler:
   - gcc
   - clang
 
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    - boost-latest
+    packages:
+    - gcc-4.8
+    - g++-4.8
+    - clang
+
 before_install:
   - sudo apt-get update -qq
   - sudo apt-get install -y libprotobuf-dev protobuf-compiler  # Google Protocol Buffers
@@ -21,15 +31,6 @@ install:
   - cd -
 # Use g++4.8 and not 4.6 (C++11 missing)
   - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
-
-addons:
-  apt:
-    sources:
-    - ubuntu-toolchain-r-test
-    packages:
-    - gcc-4.8
-    - g++-4.8
-    - clang
 
 before_script:
   - cmake .
