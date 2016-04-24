@@ -19,6 +19,12 @@ build_script:
   - set GTEST_LIBRARY=%cd%\VS2015\googletest\googletest\build\Release\gtest.lib
   - set GTEST_INCLUDE_DIR=%cd%\VS2015\googletest\googletest\include
   - set GTEST_MAIN_LIBRARY=%cd%\VS2015\googletest\googletest\build\Release\gtest_main.lib
+  - set Boost_DATE_TIME_LIBRARY_DEBUG=%BOOST_ROOT%\lib64-msvc-14.0\libboost_date_time-vc140-mt-sgd-1_59.lib
+  - set Boost_DATE_TIME_LIBRARY_RELEASE=%BOOST_ROOT%\lib64-msvc-14.0\libboost_date_time-vc140-mt-s-1_59.lib
+  - set Boost_REGEX_LIBRARY_DEBUG=%BOOST_ROOT%\lib64-msvc-14.0\libboost_regex-vc140-mt-sgd-1_59.lib
+  - set Boost_REGEX_LIBRARY_RELEASE=%BOOST_ROOT%\lib64-msvc-14.0\libboost_regex-vc140-mt-s-1_59.lib
+  - set Boost_SYSTEM_LIBRARY_DEBUG=%BOOST_ROOT%\lib64-msvc-14.0\libboost_system-vc140-mt-sgd-1_59.lib
+  - set Boost_SYSTEM_LIBRARY_RELEASE=%BOOST_ROOT%\lib64-msvc-14.0\libboost_system-vc140-mt-s-1_59.lib
   - mkdir VS2015
   - cd VS2015
 
@@ -31,9 +37,9 @@ build_script:
   - git clone -b v3.0.0-beta-2 https://github.com/google/protobuf.git
   - cmake -G "Visual Studio 14 2015 Win64" -Bprotobuf\cmake\build -Hprotobuf\cmake -Dprotobuf_BUILD_TESTS:boolean=false
   - cmake --build protobuf/cmake/build --config %CONFIGURATION%
-
+  
   # Trading Suite
-  - cmake -G "Visual Studio 14 2015 Win64" .. -DGTEST_LIBRARY:string=%GTEST_LIBRARY% -DGTEST_INCLUDE_DIR:string=%GTEST_INCLUDE_DIR% -DGTEST_MAIN_LIBRARY:string=%GTEST_MAIN_LIBRARY% -DPROTOBUF_LIBRARY:string=%PROTOBUF_LIBRARY% -DPROTOBUF_INCLUDE_DIR:string=%PROTOBUF_INCLUDE_DIR% -DPROTOBUF_PROTOC_EXECUTABLE:string=%PROTOBUF_PROTOC_EXECUTABLE%
+  - cmake -G "Visual Studio 14 2015 Win64" .. -DGTEST_LIBRARY:string=%GTEST_LIBRARY% -DGTEST_INCLUDE_DIR:string=%GTEST_INCLUDE_DIR% -DGTEST_MAIN_LIBRARY:string=%GTEST_MAIN_LIBRARY% -DPROTOBUF_LIBRARY:string=%PROTOBUF_LIBRARY% -DPROTOBUF_INCLUDE_DIR:string=%PROTOBUF_INCLUDE_DIR% -DPROTOBUF_PROTOC_EXECUTABLE:string=%PROTOBUF_PROTOC_EXECUTABLE% -DBoost_DATE_TIME_LIBRARY_RELEASE:string=%Boost_DATE_TIME_LIBRARY_RELEASE% -DBoost_REGEX_LIBRARY_RELEASE:string=%Boost_REGEX_LIBRARY_RELEASE% -DBoost_SYSTEM_LIBRARY_RELEASE:string=%Boost_SYSTEM_LIBRARY_RELEASE%
   - cmake --build . --target ALL_BUILD --config %CONFIGURATION%
 
   #- cd ..
@@ -47,4 +53,4 @@ build:
   verbosity: detailed
 
 #on_finish:
-#- ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+ #- ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))

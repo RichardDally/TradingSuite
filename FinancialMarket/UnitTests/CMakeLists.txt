@@ -41,6 +41,9 @@ include_directories(${ProtobufMessages_BINARY_DIR})
 # Include FinancialMarketCore headers
 include_directories(${FinancialMarketCore_SOURCE_DIR}/headers)
 
+# Include FinancialMarketServer headers
+include_directories(${FinancialMarketServer_SOURCE_DIR}/headers)
+
 # Include ProtobufMessages template serialization helpers
 include_directories(${ProtobufMessages_SOURCE_DIR}/headers)
 
@@ -52,7 +55,7 @@ file(GLOB_RECURSE FINANCIAL_MARKET_UNIT_TESTS_FILES headers/* src/*)
 
 add_executable(FinancialMarketUnitTests ${FINANCIAL_MARKET_UNIT_TESTS_FILES})
 
-target_link_libraries(FinancialMarketUnitTests ${GTEST_BOTH_LIBRARIES} ${PROTOBUF_LIBRARIES} FinancialMarketCore ProtobufMessages)
+target_link_libraries(FinancialMarketUnitTests FinancialMarketCore ProtobufMessages ${GTEST_BOTH_LIBRARIES} ${PROTOBUF_LIBRARIES})
 
 enable_testing()
 add_test(NAME FinancialMarketUnitTests COMMAND FinancialMarketUnitTests)

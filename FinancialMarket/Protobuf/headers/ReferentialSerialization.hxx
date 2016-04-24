@@ -4,20 +4,20 @@
 
 #include <Referential.pb.h>
 
-template <typename AssociativeContainer>
-std::tuple<std::string, bool> EncodeReferential(const AssociativeContainer& instruments)
+template <typename DerivedInstrumentType>
+std::tuple<std::string, bool> EncodeReferential(const std::vector<DerivedInstrumentType>& instruments)
 {
     GOOGLE_PROTOBUF_VERIFY_VERSION;
 
     PB::Referential referential;
 
-    for (const auto& pair : instruments)
+    for (const auto& instrument : instruments)
     {
         auto pbInstrument = referential.add_instrument();
-        pbInstrument->set_id(pair.second->GetInstrumentID());
-        pbInstrument->set_isin(pair.second->GetISIN());
-        pbInstrument->set_mnemo(pair.second->GetMnemo());
-        pbInstrument->set_name(pair.second->GetName());
+        pbInstrument->set_id(instrument.GetInstrumentID());
+        pbInstrument->set_isin(instrument.GetISIN());
+        pbInstrument->set_mnemo(instrument.GetMnemo());
+        pbInstrument->set_name(instrument.GetName());
     }
 
     std::string serializedReferential;
@@ -27,15 +27,15 @@ std::tuple<std::string, bool> EncodeReferential(const AssociativeContainer& inst
         // TODO: log error
     }
 
-    return std::make_tuple(serializedReferential, success);
+    return std::make_tuple(std::move(serializedReferential), success);
 }
 
-template <typename AssociativeContainer, typename DerivedInstrumentType>
-std::tuple<AssociativeContainer, bool> DecodeReferential(const std::string& serializedReferential)
+template <typename DerivedInstrumentType>
+std::tuple<std::vector<DerivedInstrumentType>, bool> DecodeReferential(const std::string& serializedReferential)
 {
     GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-    AssociativeContainer instruments;
+    std::vector<DerivedInstrumentType> instruments;
 
     PB::Referential referential;
     const auto success = referential.ParseFromString(serializedReferential);
@@ -45,8 +45,7 @@ std::tuple<AssociativeContainer, bool> DecodeReferential(const std::string& seri
         for (int i = 0; i < instrumentSize; ++i)
         {
             const auto instrumentId = referential.instrument(i).id();
-            instruments[instrumentId] = InstrumentFactory::BuildInstrument<DerivedInstrumentType>
-                (instrumentId, referential.instrument(i).name(), referential.instrument(i).isin(), referential.instrument(i).mnemo());
+            instruments.emplace_back(instrumentId, referential.instrument(i).name(), referential.instrument(i).isin(), referential.instrument(i).mnemo());
         }
     }
     else
@@ -54,7 +53,7 @@ std::tuple<AssociativeContainer, bool> DecodeReferential(const std::string& seri
         // TODO: log error
     }
 
-    return std::make_tuple(instruments, success);
+    return std::make_tuple(std::move(instruments), success);
 }
 
 #endif
